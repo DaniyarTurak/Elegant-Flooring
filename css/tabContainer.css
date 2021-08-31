@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&display=swap');
+
+label{
+    margin-bottom: 0px !important;
+}
+
+button{
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.form-control{
+    width: 75%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+
+.header{
+    background-color: #6E675F;
+    margin-bottom: 30px;
+}
+
+.container{
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.tabContainer {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background-color: #211F1C;
+}
+
+.tabContainer .buttonContainer {
+    height: 15%;
+    position: relative;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tabContainer .buttonContainer button {
+    width: 311px;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    background-color: #A39594;
+    border-radius: 5px;
+    border: 1px solid black;
+} 
+
+.tabContainer .buttonContainer button:hover {
+    background-color: #d7d4d4;
+}
+
+.tabContainer .tabPanel {
+    height: 100%;
+    color: black;
+    text-align: center;
+    padding-top: 30px;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    display: none;
+    position: relative;
+}
+
+
+/*Second sku tables*/
+.skuContainer {
+    width: 100%;
+    position: relative;
+}
+
+.skuContainer .skuButtonContainer {
+    width: 55%;
+    height: 15%;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.skuContainer .skuButtonContainer button {
+    width: 35%;
+    height: 100%;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    background-color: #eee;
+} 
+
+.skuContainer .skuButtonContainer button:hover {
+    background-color: #d7d4d4;
+}
+
+.skuContainer .skuPanel {
+    height: 80vh;
+    max-height: 100%;
+    width: 100%;
+    color: black;
+    text-align: center;
+    padding-top: 30px;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    display: none;
+    position: relative;
+    background-color: #EDEBD7;
+}
+
+#repTab{
+    background-color: #EDEBD7;
+    border-radius: 10px;
+    padding: 10px;
+    height: 80vh;
+    max-height: 100%;
+}
+#repTab table{
+    border-spacing: 0 2rem;
+}
+
+#repTab select{
+    background-color: transparent;
+    border: 0px;
+    border-bottom: 1px solid black;
+    text-align: center;
+    width: 70%;
+    text-align-last: center;
+}
+
+#repTab input{
+    background-color: transparent;
+    border-bottom: 2px solid black;
+    text-align: center;
+    width: 70%;
+    text-align-last: center;
+}
+
+.sort-block{
+    background-color: #EDEBD7;
+    padding: 5px 10px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.cart-header{
+    background-color: #EDEBD7;
+}
+
+.cart-body{
+    background-color: #6E675F;
+}
+
+.cart-img, .cart-input{
+    height: 60px;
+}
+
+.cart-input{
+    width: 100%;
+}
+
+.cart-textarea{
+    height: 100%;
+}
+
+.cart-container{
+    width: 80%;
+    margin: 0 auto;
+}

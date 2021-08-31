@@ -1,0 +1,306 @@
+table{
+    border-spacing: 0;
+    width: 100%;
+    text-align: center;
+    table-layout:fixed;
+    border-collapse: collapse;
+}
+th,td{
+    padding: 10px 20px;
+    vertical-align:middle;
+    background-color: #EDEBD7;
+}
+
+label {
+    float: left;
+}
+
+.tagsSpan {
+    display: inline-flex;
+    padding: 5px;
+    margin-bottom: 5px;
+    height: 60px;
+    width: 100%;
+}
+
+select {
+    width: 50%;
+}
+
+.addRows {
+    position: fixed;
+    bottom: 10px;
+    right: 100px;
+    padding: 5px 10px;
+    border: 1px solid wheat;
+    color: white;
+}
+
+.saveTables {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border: 1px solid wheat;
+    color: white;
+}
+
+
+.icons {
+    width: 3.5%;
+    cursor: pointer;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.flags {
+    width: 25%;
+    margin: 10px;
+    border: 2px solid gray;
+    border-radius: auto;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+}
+
+#skuTable {
+    table-layout: auto;
+}
+
+.crossCell {
+    width: 10%;
+}
+
+.cross {
+    width: 20%;
+
+    cursor: pointer;
+}
+
+.photoIcon {
+    height: 100%;
+}
+
+.flagCell {
+    width: 10%;
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+i {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+span {
+    content: "\2195";
+    cursor: pointer;
+}
+
+.photoLabel {
+    width: 20%;
+    cursor: pointer;
+    height: 100%;
+}
+
+.fixedButtonsSku {
+    color: white;
+}
+
+.sortBtn {
+    cursor: pointer;
+}
+
+.sortAccBtn {
+    cursor: pointer;
+}
+
+.sortShopBtn {
+    cursor: pointer;
+}
+
+.show{
+    display:block
+}
+
+.hide{
+    display:none
+}
+
+/*Active-Non*/
+.toggleSwitch {
+    display: inline-block;
+    height: 18px;
+    position: relative;
+    overflow: visible;
+    padding: 0;
+    margin-left: 30px;
+    margin-right: 20px;
+    cursor: pointer;
+    width: 40px;
+    user-select: none;
+  }
+
+  .toggleSwitch label,
+  .toggleSwitch > span {
+    line-height: 20px;
+    height: 20px;
+    vertical-align: middle;
+  }
+  .toggleSwitch label {
+    position: relative;
+    z-index: 3;
+    display: block;
+    width: 100%;
+  }
+
+  .toggleSwitch input:focus ~ a,
+  .toggleSwitch input:focus + label {
+    outline: none;
+  }
+
+  .toggleSwitch input {
+    position: absolute;
+    opacity: 0;
+    z-index: 5;
+  }
+  .toggleSwitch span span {
+    display: none;
+  }
+
+.toggleSwitch > span {
+    position: absolute;
+    left: -50px;
+    width: 100%;
+    margin: 0;
+    padding-right: 50px;
+    text-align: center;
+    white-space: nowrap;
+    
+  }
+  .toggleSwitch > span span {
+    position: absolute;
+
+    left: 0;
+    z-index: 5;
+    display: block;
+    width: 50%;
+    text-align: center;
+    font-size: 0.9em;
+    width: 100%;
+    left: 15%;
+    opacity: 0;
+    color: black;
+  }
+
+  .toggleSwitch a {
+    position: absolute;
+    right: 50%;
+    z-index: 4;
+    display: block;
+    height: 100%;
+    padding: 0;
+    left: 2px;
+    width: 18px;
+    background-color: #fff;
+    border: 1px solid #CCC;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    top: calc(130% + 4px);
+  }
+
+  .toggleSwitch > span span:first-of-type {
+    color: black;
+    opacity: 1;
+    left: 45%;
+  }
+  .toggleSwitch > span:before {
+    content: '';
+    display: block;
+    width: 170%;
+    height: 100%;
+    position: absolute;
+    left: 35px;
+    top: 130%;
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+  }
+
+  .toggleSwitch input:checked ~ a {
+    border-color: #fff;
+    left: 100%;
+    margin-left: -8px;
+  }
+  .toggleSwitch input:checked ~ span:before {
+    border-color: #0097D1;
+    box-shadow: inset 0 0 0 30px #0097D1;
+  }
+  .toggleSwitch input:checked ~ span span:first-of-type {
+    opacity: 0;
+  }
+  .toggleSwitch input:checked ~ span span:last-of-type {
+    opacity: 1;
+    color: black;
+    left: 90%;
+  }
+
+  .toggleSwitch.large {
+    width: 60px;
+    height: 27px;
+  }
+  .toggleSwitch.large a {
+    width: 27px;
+  }
+  .toggleSwitch.large > span {
+    height: 29px;
+    line-height: 28px;
+  }
+  .toggleSwitch.large input:checked ~ a {
+    left: 41px;
+  }
+  .toggleSwitch.large > span span {
+    font-size: 1.1em;
+  }
+  .toggleSwitch.large > span span:first-of-type {
+    left: 50%;
+  }
+  .toggleSwitch.xlarge {
+    width: 80px;
+    height: 36px;
+  }
+  .toggleSwitch.xlarge a {
+    width: 36px;
+  }
+  .toggleSwitch.xlarge > span {
+    height: 38px;
+    line-height: 37px;
+  }
+  .toggleSwitch.xlarge input:checked ~ a {
+    left: 52px;
+  }
+  .toggleSwitch.xlarge > span span {
+    font-size: 1.4em;
+  }
+  .toggleSwitch.xlarge > span span:first-of-type {
+    left: 50%;
+  }
+
+  .deleteActive {
+    cursor: pointer;
+  }

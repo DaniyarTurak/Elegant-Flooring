@@ -1,0 +1,83 @@
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    text-align: center;
+    table-layout:fixed;
+}
+th, td{
+    padding: 10px 20px;
+    border: 1px solid #000;
+    white-space: nowrap; 
+}
+
+select {
+    width: 50%;
+}
+
+.addRows {
+    position: fixed;
+    bottom: 10px;
+    right: 80px;
+}
+
+.saveTables {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+
+.icons {
+    width: 3.5%;
+    cursor: pointer;
+}
+
+.flags {
+    width: 25%;
+    margin: 10px;
+    border: 2px solid gray;
+    border-radius: auto;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+}
+
+#skuTable {
+    table-layout: auto;
+}
+
+.cameraCell {
+    width: 10%;
+}
+
+.cross {
+    width: 20%;
+
+    cursor: pointer;
+}
+
+.flagCell {
+    width: 10%;
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+i {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+span {
+    content: "\2195";
+    cursor: pointer;
+}
