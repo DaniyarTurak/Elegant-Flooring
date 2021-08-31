@@ -308,20 +308,31 @@ search.addEventListener('keyup', (e) => {
             if (item.nodeName == "DIV") {
                 if (item.className.includes("cart-header") == true) {
                     cartsArr.push(item);
-                }
+                } 
             }
         });
     });
 
     cartsArr.forEach(cart => {
-        let target = cart.querySelector('.flex-1').textContent.toUpperCase();
+        let title = cart.querySelector('.flex-1').textContent.toUpperCase(),
+            tags = cart.parentElement.querySelectorAll('.cart-input');
         
-        if (target.includes(searchValue) == true) {
+        let stringTemp = '';
+
+        tags.forEach(tag => {
+            
+            stringTemp += tag.value.toUpperCase();
+            
+        });
+        
+        if (title.includes(searchValue) || stringTemp.includes(searchValue)) {
             cart.parentElement.style.display = '';
         } else {
             cart.parentElement.style.display = 'none';
         }
     });
+
+    
 });
 
 function flagIcons(flag) {
