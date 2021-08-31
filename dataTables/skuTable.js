@@ -831,3 +831,13 @@ function sortDesc(arr) {
     return arr;
 }
 
+
+function changeLanguage(language) {
+    var element = document.getElementById("url");
+    element.value = language;
+    element.innerHTML = language;
+}
+
+function showDropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
