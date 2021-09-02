@@ -15,91 +15,112 @@ function callSku() {
     skuRecords();
 }
 
-const activeCheckbox = document.querySelector('[type="checkbox"]');
-activeCheckbox.addEventListener('change', (e) => {
-    if (e.target.checked == true) {
-        console.log("Checked");
-        insertToParent(allActiveValue);
-        isActive = true;
+const activeCheckbox = document.querySelector('#statusSwitcher');
+activeCheckbox.addEventListener('click', (e) => {
+    
+    const stSwitch = document.getElementById('statusSwitcher');
+    let status = stSwitch.getAttribute('status');
+    const carts = document.querySelectorAll('.cart');
+
+    carts.forEach(cart => {
+        cart.classList.toggle('nonActiveCart');
+    });
+
+    if (status == "true") {
+        stSwitch.setAttribute('status', false);
+        document.getElementById("checkedTxt").innerHTML = "Inactive";
+        document.getElementById("checkedImg").src = "icons/checked.svg";
+        document.getElementById('checkedTxt').style.color = '#656565';
+
+        
+
+        
+        
     } else {
-        console.log("Unchecked");
-        insertToParent(allNonActiveValue);
-        isActive = false;
+        stSwitch.setAttribute('status', true);
+        document.getElementById("checkedTxt").innerHTML = "Active";
+        document.getElementById("checkedImg").src = "icons/checked-blue.svg";
+        document.getElementById('checkedTxt').style.color = '#0078FF';
+        
+        
     }
+   
 });
 
 addSkuBtn.addEventListener('click', (e) => {
 
-    const carts = document.querySelectorAll('.cart');
+    // const carts = document.querySelectorAll('.cart');
 
-    if (isActive) {
-        while(allActiveValue.length>0){
-            allActiveValue.pop();
-        }
-    } else {
-        while(allNonActiveValue.length>0){
-            allNonActiveValue.pop();
-        }
-    }
+    // if (isActive) {
+    //     while(allActiveValue.length>0){
+    //         allActiveValue.pop();
+    //     }
+    // } else {
+    //     while(allNonActiveValue.length>0){
+    //         allNonActiveValue.pop();
+    //     }
+    // }
 
-    carts.forEach(cart => {
-        const tags = cart.querySelectorAll('.cart-input'),
-        comment = cart.querySelector('.cart-textarea'),
-        flag = cart.querySelector('.flag'),
-        sku = cart.querySelector('.title-sku');
+    // carts.forEach(cart => {
+    //     const tags = cart.querySelectorAll('.cart-input'),
+    //     comment = cart.querySelector('.cart-textarea'),
+    //     flag = cart.querySelector('.flag'),
+    //     sku = cart.querySelector('.title-sku'),
+    //     cartsImg = cart.querySelectorAll('.cart-img');
 
-        tags.forEach(tag => {
-            if (isActive) {
-                allActiveValue.push({'Active': "Active", 'Flags': getValueFromSrc(flag.src), 'SKU': sku.textContent, 'Tags': tag.value, 'comments': comment.textContent});
-            } else {
-                allNonActiveValue.push({'Active': "Active", 'Flags': getValueFromSrc(flag.src), 'SKU': sku.textContent, 'Tags': tag.value, 'comments': comment.textContent});
-            }
-            
-        });
-    });
+        
+    //     tags.forEach(tag => {
+    //         if (isActive) {
+    //             allActiveValue.push({'Active': "Active", 'Flags': getValueFromSrc(flag.src), 'SKU': sku.textContent, 'Tags': tag.value, 'comments': comment.textContent});
+    //         } else {
+    //             allNonActiveValue.push({'Active': "Active", 'Flags': getValueFromSrc(flag.src), 'SKU': sku.textContent, 'Tags': tag.value, 'comments': comment.textContent});
+    //         }
+    //     });
+    // });
     
-    if (isActive) {
-        insertToParent(allActiveValue);
-    } else {
-        insertToParent(allNonActiveValue);
-    }
     
+    // if (isActive) {
+    //     insertToParent(allActiveValue);
+    // } else {
+    //     insertToParent(allNonActiveValue);
+    // }
 
-    
-
-    const parent = document.querySelector('.cart-container');
-    parent.innerHTML += `
-    <div class="cart flex flex-col">
-        <div class="cart-header p-4 flex items-center gap-4">
-            <div contenteditable="true" style="width: 45px;" class="tagCount border-2 border-black">1</div>
-            <div contenteditable="true" class="flex-1 title-sku"></div>
-            <div class="flagContainer">
-                <img src="flags/gray_circle.png" alt="" width="45" class="flag">
+    const newcart = `
+        <div class="cart">
+            <div class="flex flex-col">
+                <div class="cart-header p-4 flex items-center gap-4">
+                    <div contenteditable="true" style="width: 45px;" class="tagCount border-2 border-black">1</div>
+                    <div contenteditable="true" class="flex-1 title-sku"></div>
+                    <div class="flagContainer">
+                        <img src="flags/gray_circle.png" alt="" width="45" class="flag">
+                    </div>
+                </div>
+                <div class="cart-body p-4">
+                    <div class="gap-4 mb-4" style="display:grid;grid-template-columns: 0.2fr 2.4fr 1.2fr 0.2fr;">
+                    <div><img data-modal src="cameraImg/drop_file.png" alt="" width="55" class="cart-img"></div>
+                    <div class="tags flex flex-1 flex-col gap-4">
+                    <div class="custom-input">
+                        <input type="text" class="custom-input_input" oninput="addSpan(event)" list="tags">
+                    </div><!--separator-->
+                    </div>
+                    <div class="comments flex flex-col">
+                    <input class="cart-textarea p-4" placeholder="Comment">
+                    </div>
+                    <div class="deleteRow">X</div>
+                </div>
+                </div>
             </div>
+        <br>
         </div>
-        <div class="cart-body p-4">
-            <div class="flex flex-row gap-4">
-                <div class="flex flex-col gap-4">
-                    <div class="cart-item-img"><img data-modal src="cameraImg/drop_file.png" alt="" width="55" class="cart-img"></div>
-                </div>
-                <div class="tags flex flex-1 flex-col gap-4">
-                    <div class="cart-item-input"><input list="tagNamesDataList" type="text" class="cart-input pl-2" placeholder="Name"></div>
-                </div>
-                <div class="comments flex flex-col">
-                    <textarea class="cart-textarea p-4" placeholder="Comment"></textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
+        
     `;
-
-    
-
+    const parent = document.querySelector('.cart-container');
+    parent.insertAdjacentHTML("beforeend", newcart);
 
     flagAndTagsChange();
     fillDataList();
     modalInsert();
+    deleteRowsEvent();
 });
 
 function insertToParent(arr) {
@@ -107,7 +128,9 @@ function insertToParent(arr) {
         tags: {},
         comments: {},
         flags: {},
-        url: {}
+        url: {},
+        row: {},
+        active: {}
     };
 
     for (let i=0; i<arr.length; i++) {
@@ -115,22 +138,46 @@ function insertToParent(arr) {
         skuDb.comments[arr[i].SKU] = ``;
         skuDb.flags[arr[i].SKU] = ``;
         skuDb.url[arr[i].SKU] = ``;
+        skuDb.row[arr[i].SKU] = ``;
+        skuDb.active[arr[i].SKU] = ``;
     }
-
-
     
     for (let i=0; i<arr.length; i++) {
-        skuDb.tags[arr[i].SKU] +=`<input type="text" list="tagNamesDataList" class="cart-input pl-2" placeholder="Name" value="${arr[i].Tags}"><!--separator-->`;
+        let arrWords = (arr[i].Tags).split("-");
 
-        skuDb.comments[arr[i].SKU] = `<textarea class="cart-textarea p-4" placeholder="Comment">${arr[i].comments}</textarea>`;
-    
         skuDb.flags[arr[i].SKU] = `${arr[i].Flags}`;
         
-        skuDb.url[arr[i].SKU] += `<img data-modal src="uploads/${arr[i].Tags}.png" alt="" width="55" class="cart-img">`;
+        skuDb.row[arr[i].SKU] += `<div class="gap-4 mb-4" style="display:grid;grid-template-columns: 0.2fr 2.4fr 1.2fr 0.2fr;">`;
 
+        skuDb.url[arr[i].SKU] += `<div><img data-modal src="uploads/${arr[i].Tags}.png" alt="" width="55" class="cart-img"></div>`; 
 
+        skuDb.tags[arr[i].SKU] += `<div class="tags flex flex-1 flex-col gap-4">`;
+        skuDb.tags[arr[i].SKU] +=`<div class="custom-input">`;
         
+        for(let a in arrWords){
+            skuDb.tags[arr[i].SKU] +=`
+                <span class="custom-input_word" contenteditable="true">
+                    ${arrWords[a]}
+                <button class="x-button" onclick="deleteSpan(event)">x</button>
+                </span>
+            `;
+        }
+        skuDb.tags[arr[i].SKU] +=`<input type="text" class="custom-input_input" oninput="addSpan(event)" list="tags"></div><!--separator--></div>`;
+        
+        skuDb.comments[arr[i].SKU] += `<div class="comments flex flex-col"><input class="cart-textarea p-4" value="${arr[i].comments}"></div>`;
+        
+        skuDb.row[arr[i].SKU] += skuDb.url[arr[i].SKU];
+        skuDb.row[arr[i].SKU] += skuDb.tags[arr[i].SKU];
+        skuDb.row[arr[i].SKU] += skuDb.comments[arr[i].SKU];
+        skuDb.row[arr[i].SKU] += '<div class="deleteRow">X</div></div>';
+
+        skuDb.url[arr[i].SKU] = ``;
+        skuDb.tags[arr[i].SKU] = ``;
+        skuDb.comments[arr[i].SKU] = ``;
+        skuDb.active[arr[i].SKU] = `${arr[i].Active}`;
     }
+
+    
 
     let parent = document.querySelector('.cart-container');
     parent.innerHTML = "";
@@ -138,82 +185,179 @@ function insertToParent(arr) {
         <datalist  id="tagNamesDataList"></datalist>
     `;
     for (const [key, value] of Object.entries(skuDb.tags)) {
-        parent.innerHTML += `
-            <div class="cart flex flex-col">
-                <div class="cart-header p-4 flex items-center gap-4">
-                    <img class="deleteActive" src="icons/delete.png" alt="delete">
-                    <div contenteditable="true" style="width: 45px;" class="tagCount border-2 border-black">${skuDb.tags[key].split('<!--separator-->').filter(a => a.length>0).length}</div>
-                    <div contenteditable="true" class="flex-1 title-sku">${key}</div> 
-                    <div class="flagContainer">
-                        <img src="${flagIcons(skuDb.flags[key])}" alt="" width="45" class="flag">
+        
+        // grid addclass for menu
+        if (skuDb.active[key] == "Active") {
+            parent.innerHTML += `
+            <div class="cart">
+                <div class="flex flex-col relative mb">
+            
+                    <div class="absolute menu" style="top: 16px; left:20px; width: 200px; background-color: white; border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
+                        <span style="width: 100%; border-bottom: 1px solid black;">Deactivate</span>
+                        <span style="width: 100%;">Delete permanently</span>
+                    </div>
+                    <div class="menu" style="background: rgba(0, 0, 0, 0.5);position: absolute;top: 0;bottom: 0;left: 0;right: 0; z-index: 100;"></div>
+
+                    <div class="cart-header p-4 flex items-center gap-4">
+                        <div class="discussion" style="font-size: 2em;"></div>
+
+                        <div contenteditable="true" style="width: 45px;" class="tagCount border-2 border-black">${countOccurence(skuDb.row[key], "cart-textarea")}</div>
+                        <div contenteditable="true" class="flex-1 title-sku">${key}</div> 
+                        <div class="flagContainer">
+                            <img src="${flagIcons(skuDb.flags[key])}" alt="Flags" width="45" class="flag">
+                        </div>
+                    </div>
+                    <div class="cart-body p-4">
+                        ${skuDb.row[key]}
+                        
                     </div>
                 </div>
-                <div class="cart-body p-4">
-                    <div class="flex flex-row gap-4">
-                        <div class="imgIcons flex flex-col gap-4">
-                            ${skuDb.url[key]}
-                        </div>
-                        <div class="tags flex flex-1 flex-col gap-4">
-                            ${skuDb.tags[key]}
-                            
-                        </div>
-                        <div class="comments flex flex-col">
-                            ${skuDb.comments[key]}
-                        </div>
-                    </div>
-                </div>
+                <br>
             </div>
+            `;
+        } else {
+            parent.innerHTML += `
+            <div class="cart nonActiveCart">
+                <div class="flex flex-col relative mb">
+                    
+                    <div class="absolute menu" style="top: 16px; left:20px; width: 200px; background-color: white; border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
+                        <span style="width: 100%; border-bottom: 1px solid black;">Restore</span>
+                        <span style="width: 100%;">Delete permanently</span>
+                    </div>
+                    <div class="menu" style="background: rgba(0, 0, 0, 0.5);position: absolute;top: 0;bottom: 0;left: 0;right: 0; z-index: 100;"></div>
+
+                    <div class="cart-header p-4 flex items-center gap-4 ">
+                        <div class="discussion" style="font-size: 2em;"></div>
+
+                        <div class="test"></div>
+                        <div contenteditable="true" style="width: 45px;" class="tagCount border-2 border-black">${countOccurence(skuDb.row[key], "cart-textarea")}</div>
+                        <div contenteditable="true" class="flex-1 title-sku">${key}</div> 
+                        <div class="flagContainer">
+                            <img src="${flagIcons(skuDb.flags[key])}" alt="Flags" width="45" class="flag">
+                        </div>
+                    </div>
+                    <div class="cart-body p-4">
+                        ${skuDb.row[key]}
+                        
+                    </div>
+                </div>
             <br>
-        `;
+            </div>
+            `;
+        }
+        
     }
 
     flagAndTagsChange();
     fillDataList();
     modalInsert();
+    deleteRowsEvent();
 
-    const deleteActive = document.querySelectorAll('.deleteActive');
-    deleteActive.forEach(btn => {
+    const threeDots = document.querySelectorAll('.discussion');
+    
+    
+
+    // document.getElementById('skuTab').addEventListener('click', (e) => {
+    //     const menus = document.querySelectorAll('.menu');
+    //     menus.forEach(menu => {
+    //         menu.classList.remove('show');
+    //     });
+    // });
+
+    threeDots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+            const cart = e.target.parentElement.parentElement,
+                  menus = cart.querySelectorAll('.menu');
+            
+            menus.forEach(menu => {
+                menu.classList.add('show');
+                menu.addEventListener('click', (e) => {
+                    if(e.target.textContent == "Deactivate" || e.target.textContent == "Restore" ) {
+                        e.target.parentElement.parentElement.parentElement.classList.toggle('nonActiveCart');
+                    } else {
+                        e.target.parentElement.parentElement.parentElement.remove();
+                    }
+                });
+            });
+
+        }); 
+    });
+
+    // const deleteTagBtn = document.querySelectorAll('.deleteTag'),
+    //       imgTags = document.querySelectorAll('.cart-img');
+          
+    // deleteTagBtn.forEach((btn, id) => {
+    //     btn.addEventListener('click', (e) => {
+    //         const cart = e.target.parentElement.parentElement.parentElement.parentElement.parentElement,
+    //               tagCnt = cart.querySelector('.tagCount');
+    //         e.target.parentElement.remove();
+    //         imgTags[id].remove();
+    //         tagCnt.textContent = tagCnt.textContent - 1;
+    //     });
+    // });
+
+
+    
+
+    // const deleteActive = document.querySelectorAll('.deleteActive');
+    // deleteActive.forEach(btn => {
         
-            btn.addEventListener('click', (e) => {
-                //console.log(e.target.parentElement.parentElement);
+    //         btn.addEventListener('click', (e) => {
+    //             //console.log(e.target.parentElement.parentElement);
                 
-                if (isActive == true) {
-                    const cart = e.target.parentElement.parentElement,
-                    sku = cart.querySelector('.flex-1').textContent;
+    //             if (isActive == true) {
+    //                 const cart = e.target.parentElement.parentElement,
+    //                 sku = cart.querySelector('.flex-1').textContent;
                 
                
                     
-                    for (let i=0; i<allActiveValue.length; i++) {
+    //                 for (let i=0; i<allActiveValue.length; i++) {
                         
-                        if (Object.values(allActiveValue[i]).indexOf(sku) > -1) {
-                            allNonActiveValue.push(allActiveValue[i]);
-                            allActiveValue.splice(i, 1);
-                            i--;
-                        }
-                    }
+    //                     if (Object.values(allActiveValue[i]).indexOf(sku) > -1) {
+    //                         allNonActiveValue.push(allActiveValue[i]);
+    //                         allActiveValue.splice(i, 1);
+    //                         i--;
+    //                     }
+    //                 }
 
-                    insertToParent(allActiveValue);
-                } else {
-                    const cart = e.target.parentElement.parentElement,
-                    sku = cart.querySelector('.flex-1').textContent;
+    //                 insertToParent(allActiveValue);
+    //             } else {
+    //                 const cart = e.target.parentElement.parentElement,
+    //                 sku = cart.querySelector('.flex-1').textContent;
                 
-                    for (let i=0; i<allNonActiveValue.length; i++) {
+    //                 for (let i=0; i<allNonActiveValue.length; i++) {
                         
-                        if (Object.values(allNonActiveValue[i]).indexOf(sku) > -1) {
-                            allNonActiveValue.splice(i, 1);
-                            i--;
-                        }
-                    }
+    //                     if (Object.values(allNonActiveValue[i]).indexOf(sku) > -1) {
+    //                         allNonActiveValue.splice(i, 1);
+    //                         i--;
+    //                     }
+    //                 }
 
-                    insertToParent(allNonActiveValue);
-                }
+    //                 insertToParent(allNonActiveValue);
+    //             }
                 
 
-            });
+    //         });
       
             
-    });
+    // });
 
+}
+
+function deleteRowsEvent() {
+    const deleteRows = document.querySelectorAll('.deleteRow');
+    deleteRows.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const cart = e.target.parentElement.parentElement.parentElement,
+                  tagCount = cart.querySelector('.tagCount');
+            e.target.parentElement.remove();
+            tagCount.textContent -= 1;
+        });
+    });
+}
+
+function countOccurence (string, word) {
+    return string.split(word).length - 1; // create array 
 }
 
 saveSkuBtn.addEventListener('click', (e) => {
@@ -223,8 +367,6 @@ saveSkuBtn.addEventListener('click', (e) => {
     const activeArr = [];
     const commentsArr = [];
     const flagsArr = [];
-
-
 
     const carts = document.querySelectorAll('.cart');
 
@@ -315,15 +457,18 @@ search.addEventListener('keyup', (e) => {
 
     cartsArr.forEach(cart => {
         let title = cart.querySelector('.flex-1').textContent.toUpperCase(),
-            tags = cart.parentElement.querySelectorAll('.cart-input');
+            tags = cart.parentElement.querySelectorAll('.custom-input_word');
         
         let stringTemp = '';
 
         tags.forEach(tag => {
-            
-            stringTemp += tag.value.toUpperCase();
-            
+            stringTemp += tag.textContent.trim().substring(0, tag.textContent.trim().length-1).toUpperCase();
         });
+        // tags.forEach(tag => {
+            
+        //     stringTemp += tag.value.toUpperCase();
+            
+        // });
         
         if (title.includes(searchValue) || stringTemp.includes(searchValue)) {
             cart.parentElement.style.display = '';
@@ -376,48 +521,52 @@ function flagAndTagsChange() {
 
         count.addEventListener('click', (e) => {
             e.preventDefault();
-            
         });
 
         count.addEventListener('focusout', (e) => {
             e.preventDefault();
-            const currentCount = e.target.textContent;
-            const tabContainer =  e.target.parentElement.parentElement.querySelector('.tags');
-            const imgConainer = e.target.parentElement.parentElement.querySelector('.imgIcons');
+            const currentCount = e.target.textContent,
+                  rows = e.target.parentElement.parentElement.querySelectorAll('.mb-4'),
+                  cartBody = e.target.parentElement.parentElement.querySelector('.cart-body');
             
-            if (tabContainer.querySelectorAll('input').length < currentCount) {
-                const cnt = currentCount - tabContainer.querySelectorAll('input').length;
+        
+            if (rows.length < currentCount) {
+                const cnt = currentCount - rows.length;
+                
                 for (let i=0; i<cnt; i++) {
-                    const temp = document.createElement('input');
-                    temp.classList.add('tags', 'flex', 'flex-1', 'flex-col', 'gap-4');
 
-                    tabContainer.append(temp);
+                    let row = `
+                    <div class="gap-4 mb-4" style="display:grid;grid-template-columns: 0.2fr 2.4fr 1.2fr 0.2fr;">
+                        <div><img data-modal src="cameraImg/drop_file.png" alt="" width="55" class="cart-img"></div>
+                        <div class="tags flex flex-1 flex-col gap-4">
+                        <div class="custom-input">
+                            <input type="text" class="custom-input_input" oninput="addSpan(event)" list="tags">
+                        </div><!--separator-->
+                        </div>
+                        <div class="comments flex flex-col">
+                        <input class="cart-textarea p-4" placeholder="Comment">
+                        </div>
+                        <div class="deleteRow">X</div>
+                    </div>
+                    `;
+                    
 
-                    const tempImg = document.createElement('img');
-                    tempImg.setAttribute('data-modal', ''); 
-                    tempImg.src = "cameraImg/ImageNo.png";
-                    tempImg.className = "cart-img";
-                    tempImg.width = "55";
+                    cartBody.insertAdjacentHTML('beforeend', row);
 
-                    imgConainer.append(tempImg);
+                    deleteRowsEvent();
                     modalInsert();
+                        
                 }
-            } else {
-                const tabsInput  = tabContainer.querySelectorAll('input'),
-                      tabsImg = imgConainer.querySelectorAll('.cart-img');
-
+            } else if (currentCount > 0){
                 let cnt = 0;
-                tabsInput.forEach(item => {
+                rows.forEach(row => {
                     cnt++;
-                    if (cnt > currentCount) { item.remove(); }
-                });
-
-                cnt = 0;
-                tabsImg.forEach(item => {
-                    cnt++;
-                    if (cnt > currentCount) { item.remove(); }
+                    if (cnt > currentCount) {
+                        row.remove();
+                    }
                 });
             }
+            
         });
     });
 }
@@ -664,17 +813,17 @@ function skuRecords() {
 
         json.records = sortAsc(json.records);
 
-        for (let i=0; i<json.records.length; i++) {
-            if (json.records[i].Active == "Non-Active") {
-                allNonActiveValue.push(json.records[i]);
-            } else if (json.records[i].Active == "Active") {
-                allActiveValue.push(json.records[i]);
-            }
-        }
-        //sconsole.log(json.records);
-
-        insertToParent(allActiveValue);
-
+        // for (let i=0; i<json.records.length; i++) {
+        //     if (json.records[i].Active == "Non-Active") {
+        //         allNonActiveValue.push(json.records[i]);
+        //     } else if (json.records[i].Active == "Active") {
+        //         allActiveValue.push(json.records[i]);
+        //     }
+        // }
+        //console.log(json.records);
+        
+        
+        insertToParent(json.records);
 
     });
 }
@@ -705,33 +854,33 @@ document.querySelector('div.sortBtn').addEventListener('click', (e) => {
     
 });
 
-document.querySelector('div.sortByNum').addEventListener('click', (e) => {
+// document.querySelector('div.sortByNum').addEventListener('click', (e) => {
     
-    let isPressed = checkForPressed(e);
-    let temp = document.querySelectorAll('.tagCount');
-    let arr = [];
-    temp.forEach(item => {
-        arr.push(item);
-    });
+//     let isPressed = checkForPressed(e);
+//     let temp = document.querySelectorAll('.tagCount');
+//     let arr = [];
+//     temp.forEach(item => {
+//         arr.push(item);
+//     });
 
 
-    if (isPressed) {
+//     if (isPressed) {
         
-        arr = sortDesc(arr);
+//         arr = sortDesc(arr);
         
-        changeParent(arr);
+//         changeParent(arr);
 
-    } else {
+//     } else {
        
-        arr = sortAsc(arr);
+//         arr = sortAsc(arr);
         
 
-        changeParent(arr);
-    }
+//         changeParent(arr);
+//     }
     
 
     
-});
+// });
 
 
 function changeParent(arr) {
@@ -831,13 +980,23 @@ function sortDesc(arr) {
     return arr;
 }
 
+function addSpan(e) {
+    e = e || window.event;
+    var input = e.target || e.srcElement;
+    var str = input.value;
+    var arr = str.split(/[\s,]+/);
 
-function changeLanguage(language) {
-    var element = document.getElementById("url");
-    element.value = language;
-    element.innerHTML = language;
+    if (arr.length > 1) {
+        let span = `<span class="custom-input_word"contenteditable="true">${arr[0]}<button class="x-button" onclick="deleteSpan(event)">x</button></span>`;
+        input.insertAdjacentHTML("beforebegin", span);
+        input.value = "";
+    }
 }
 
-function showDropdown() {
-    document.getElementById("myDropdown").classList.toggle("show");
+function deleteSpan(e) {
+    e = e || window.event;
+    var input = e.target || e.srcElement;
+    
+    input.parentElement.remove();
 }
+

@@ -310,27 +310,24 @@ function onlyUnique(value, index, self) {
 }
 
 function checkSortPressed(e) {
-    let isPressed = false;
-    if (e.target.tagName == "IMG") {
-        if (e.target.style.backgroundColor == 'white') {
-            e.target.style.backgroundColor = '#EDEBD7';
-            isPressed = false;
+    let isPressed = e.target.sort;
 
-        } else {
-            e.target.style.backgroundColor = 'white';
-            isPressed = true;
-        }
-        
-    } else {
-        if (e.target.parentElement.style.backgroundColor == 'white') {
-            e.target.parentElement.style.backgroundColor = '#EDEBD7';
-            isPressed = false;
-        } else {
-            e.target.parentElement.style.backgroundColor = 'white';
-            isPressed = true;
-        }
+    if(e.target.name == "sortAccBtn"){
+        document.querySelector("[name = sortShopBtn]").src = "icons/sortArrowUpDown.svg"
+    } else{
+        document.querySelector("[name = sortAccBtn]").src = "icons/sortArrowUpDown.svg"
     }
 
+    if (isPressed == "true") {
+            e.target.src = "icons/sortArrowUpDown-asc.svg"
+            e.target.sort = "false";
+            isPressed = false;
+            
+    } else {
+            e.target.src = "icons/sortArrowUpDown-desc.svg"
+            e.target.sort = "true";
+            isPressed = true;
+    }
     return isPressed;
 }
 

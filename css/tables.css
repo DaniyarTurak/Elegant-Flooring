@@ -1,3 +1,7 @@
+*{
+  font-weight: 500 !important;
+}
+
 table{
     border-spacing: 0;
     width: 100%;
@@ -302,5 +306,36 @@ span {
   }
 
   .deleteActive {
+    cursor: pointer;
+  }
+  .deleteRow {
+    cursor: pointer;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .show {
+    display: grid;
+  }
+
+  .nonActiveCart {
+    display: none;
+  }
+
+  .discussion:after {
+    content: "\22EE";
+    /* box model */
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    /* decoration */
+    color: #FFFFFF;
+    background-color: #000000;
+    border-radius: 50%;
+    /* center align */
+    line-height: 1;
+    text-align: center;
     cursor: pointer;
   }

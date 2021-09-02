@@ -8,14 +8,16 @@
     <link rel="stylesheet" href="css/popUps.css">
     <link rel="stylesheet" href="css/tabContainer.css">
     <link rel="stylesheet" href="css/tables.css">
-    <link rel="stylesheet" href="css/popUpThreeDots.css">
+    
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <!--
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     -->
-
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+    </style>
     
     <title>Manager-Form</title>
 </head>
@@ -26,20 +28,20 @@
             <div class="buttonContainer container">
                 <button>REP</button> <!--onclick="showPanel(0,'#EBC670')"-->
                 <button>SKU</button>
-                <button>REPORTSl</button>
+                <button>REPORTS</button>
             </div>
         </header>
         <div class="tabPanel container" id="repTab">
             <div class="sort-block flex rounded mb-8">
-                <div class="border-b-2 border-l-2 border-t-2 border-black p-3"><img src="icons/loupe.svg" alt="" width="40" class="inline-block flex-initial "></div>
-                <input type="text" name="" id="searchInpAcc" class="min-h-full flex-1 border-2 pl-2 border-black" placeholder="Search by name">
+                <div class="border-b-2 border-l-2 border-t-2 border-black p-3"><img src="icons/loupe.svg" alt="" width="40" class="inline-block flex-initial"></div>
+                <input type="text" id="searchInpAcc" class="min-h-full flex-1 border-2 pl-2 border-black" placeholder="Search by name">
             </div>
             
             <table id="salesTable">
                 <thead>
                     <tr>
-                        <th>Sales Person <img src="icons/sortArrowUpDown.svg" alt="SortSales" width="20" class="sortAccBtn inline-block flex-initial"></th>
-                        <th>Shops <img src="icons/sortArrowUpDown.svg" alt="SortSales" width="20" class="sortShopBtn inline-block flex-initial"></th>
+                        <th>Sales Person <img src="icons/sortArrowUpDown-asc.svg" name="sortAccBtn" width="20" class="sortAccBtn inline-block flex-initial" sort="true"></th>
+                        <th>Shops <img src="icons/sortArrowUpDown.svg" name="sortShopBtn" width="20" class="sortShopBtn inline-block flex-initial"></th>
                     </tr>
                 </thead>
                 <tbody id="tbodySales"></tbody>
@@ -54,52 +56,69 @@
         <!--https://drive.google.com/uc?export=view&id=-->
         <div class="tabPanel" id="skuTab">
             <div class="container">
-                <div class="sort-block flex rounded mb-8 pr-8">
+                <div class="sort-block flex rounded mb-8 px-3">
                     <div class="sortBtn border-2 border-black mr-6 p-3"><img src="icons/sort-aplhabet-asc.svg" alt="SortAlpha" width="40" class="sortBtn inline-block flex-initial "></div>
-                    <div class="sortByNum border-2 border-black mr-6 p-3"><img src="icons/number-asc-sort.svg" alt="SortNum" width="40" class="sortBtn inline-block flex-initial "></div>
                     <div class="border-b-2 border-l-2 border-t-2 border-black p-3"><img src="icons/loupe.svg" alt="" width="40" class="inline-block flex-initial "></div>
-                    <input type="text" name="" id="searchInp" class="min-h-full flex-1 border-2 pl-2 border-black  mr-3 " placeholder="Sort by name">
-                    <div class="border-2 border-black pr-6 py-3">
-                        <label class="toggleSwitch nolabel" onclick="">
-                            <input type="checkbox" checked />
-                              <span>
-                                <span>Non-Active</span>
-                                 <span>Active</span>
-                              </span>
-                         <a></a>
-                        </label>
+                    <input type="text" name="" id="searchInp" class="min-h-full flex-1 border-2 pl-2 border-black mr-3 bg-transparent" placeholder="Start typing">
+                    <div class="border-2 border-black px-3" id="statusSwitcher" status="true" style="cursor: pointer; width: 89px; box-sizing: content-box;">
+                        <img src="icons/checked-blue.svg" width="30" class="sortBtn block flex-initial mx-auto" style="fill:#0078FF;" id="checkedImg">
+                        <span style="color: #0078FF;" id="checkedTxt">Active</span>
                     </div>
                 </div>
-
-                <div class="cart-container max-w-full min-w-max">
-                    <!--
-                    <div class="cart flex flex-col">
+                <!-- max-w-full min-w-max for cart-container-->
+                <div class="cart-container">
+                    
+                    <div class="cart flex flex-col relative mb">
                         <div class="cart-header p-4 flex items-center gap-4">
-                            <div style="width: 45px;" class="border-2 border-black">3</div>
-                            <div class="flex-1">DIAMOND GOLD</div>
-                            <div class="">
-                                <img src="/flags/red_circle.png" alt="" width="45">
+                            <img class="deleteActive" src="icons/menu.svg" alt="delete" width="33">
+                            <div contenteditable="true" style="width: 45px;" class="tagCount border-2 border-black">2</div>
+                            <div contenteditable="true" class="flex-1">Diamond Gold</div> 
+                            <div class="flagContainer">
+                                <img src="" alt="" width="45" class="flag">
                             </div>
                         </div>
                         <div class="cart-body p-4">
                             <div class="flex flex-row gap-4">
-                                <div class="flex flex-col gap-4">
-                                    <div class="cart-item-img"><img src="/cameraImg/cameraAzamat.png" alt="" class="cart-img"></div>
-                                    <div class="cart-item-img"><img src="/cameraImg/cameraAzamat.png" alt="" class="cart-img"></div>
-                                    <div class="cart-item-img"><img src="/cameraImg/cameraAzamat.png" alt="" class="cart-img"></div>
+                                <div class="imgIcons flex flex-col gap-4">
+                                    <img data-modal="" src="uploads/checkered-large-white.png" alt="" width="55" class="cart-img"><img data-modal="" src="uploads/stripes-smaill-beige.png" alt="" width="55" class="cart-img">
                                 </div>
-                                <div class="flex flex-1 flex-col gap-4">
-                                    <div class="cart-item-input"><input type="text" class="cart-input pl-2" placeholder="Name"></div>
-                                    <div class="cart-item-input"><input type="text" class="cart-input pl-2" placeholder="Name"></div>
-                                    <div class="cart-item-input"><input type="text" class="cart-input pl-2" placeholder="Name"></div>
+                                <div class="tags flex flex-1 flex-col gap-4">
+                                    <div class="custom-input">
+                                        <span class="custom-input_word" contenteditable="true">
+                                            checkered
+                                            <button contenteditable="false" class="x-button" onclick="deleteSpan(event)">x</button>
+                                        </span>
+                                        <span class="custom-input_word" contenteditable="true">
+                                            large
+                                            <button contenteditable="false" class="x-button" onclick="deleteSpan(event)">x</button>
+                                        </span>
+                                        <span class="custom-input_word" contenteditable="true">
+                                            white
+                                            <button contenteditable="false" class="x-button" onclick="deleteSpan(event)">x</button>
+                                        </span>
+                                        <input type="text" class="custom-input_input" oninput="addSpan(event)" list="tagNamesDataList">
                                 </div>
-                                <div class="flex flex-col">
-                                    <textarea name="" id="" class="cart-textarea p-4" placeholder="Comment"></textarea>
+                                    <!--separator-->
+                                    <div class="custom-input"><span class="custom-input_word" contenteditable="true">stripes
+                                    <button contenteditable="false" class="x-button" onclick="deleteSpan(event)">x</button></span>
+                                    <span class="custom-input_word" contenteditable="true">smaill
+                                    <button contenteditable="false" class="x-button" onclick="deleteSpan(event)">x</button></span>
+                                    <span class="custom-input_word" contenteditable="true">beige
+                                    <button contenteditable="false" class="x-button" onclick="deleteSpan(event)">x</button></span>
+                                    <input type="text" class="custom-input_input" oninput="addSpan(event)" list="tagNamesDataList"></div><!--separator-->
+                                </div>
+                                <div class="comments flex flex-col gap-4">
+                                    <input class="cart-input p-4" placeholder="Comment" value="Diamond comment"><input class="cart-input p-4" placeholder="Comment" value="Diamond comment">
                                 </div>
                             </div>
                         </div>
+                        <div class="absolute grid" style="top: 16px; left:20px; width: 200px; background-color: white; border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
+                            <span style="width: 100%; border-bottom: 1px solid black;">Delete permanently</span>
+                            <span style="width: 100%;">Restore</span>
+                        </div>
+                        <div style="background: rgba(0, 0, 0, 0.5);position: absolute;top: 0;bottom: 0;left: 0;right: 0; z-index: 100;"></div>
                     </div>
-                         -->
+                    <br>
                     
                 </div>
                 <div class="fixedButtonsSku">
@@ -111,10 +130,8 @@
             </div>
         </div>
 
-        <div class="tabPanel">
-            <h2>Modal Example</h2>
-             <!-- three dot menu -->
-             
+        <div class="tabPanel noSpace">
+            <iframe id="dashboard" src="https://datastudio.google.com/embed/reporting/a003daed-461b-4943-a28c-4d39ab160131/page/PqcSC" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
 
         <div class="modal">
