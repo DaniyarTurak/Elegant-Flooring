@@ -49,41 +49,6 @@ activeCheckbox.addEventListener('click', (e) => {
 
 addSkuBtn.addEventListener('click', (e) => {
 
-    // const carts = document.querySelectorAll('.cart');
-
-    // if (isActive) {
-    //     while(allActiveValue.length>0){
-    //         allActiveValue.pop();
-    //     }
-    // } else {
-    //     while(allNonActiveValue.length>0){
-    //         allNonActiveValue.pop();
-    //     }
-    // }
-
-    // carts.forEach(cart => {
-    //     const tags = cart.querySelectorAll('.cart-input'),
-    //     comment = cart.querySelector('.cart-textarea'),
-    //     flag = cart.querySelector('.flag'),
-    //     sku = cart.querySelector('.title-sku'),
-    //     cartsImg = cart.querySelectorAll('.cart-img');
-
-        
-    //     tags.forEach(tag => {
-    //         if (isActive) {
-    //             allActiveValue.push({'Active': "Active", 'Flags': getValueFromSrc(flag.src), 'SKU': sku.textContent, 'Tags': tag.value, 'comments': comment.textContent});
-    //         } else {
-    //             allNonActiveValue.push({'Active': "Active", 'Flags': getValueFromSrc(flag.src), 'SKU': sku.textContent, 'Tags': tag.value, 'comments': comment.textContent});
-    //         }
-    //     });
-    // });
-    
-    
-    // if (isActive) {
-    //     insertToParent(allActiveValue);
-    // } else {
-    //     insertToParent(allNonActiveValue);
-    // }
 
     const newcart = `
         <div class="cart">
@@ -96,7 +61,8 @@ addSkuBtn.addEventListener('click', (e) => {
                     </div>
                 </div>
                 <div class="cart-body p-4">
-                    <div class="gap-4 mb-4" style="display:grid;grid-template-columns: 0.2fr 2.4fr 1.2fr 0.2fr;">
+                    <div class="gap-4 mb-4" style="display:grid;grid-template-columns:  0.2fr 0.2fr 2.4fr 1.2fr 0.2fr;">
+                    <div contenteditable="true" class="numericOrder">1</div>
                     <div><img data-modal src="cameraImg/drop_file.png" alt="" width="55" class="cart-img"></div>
                     <div class="tags flex flex-1 flex-col gap-4">
                     <div class="custom-input">
@@ -147,7 +113,7 @@ function insertToParent(arr) {
 
         skuDb.flags[arr[i].SKU] = `${arr[i].Flags}`;
         
-        skuDb.row[arr[i].SKU] += `<div class="gap-4 mb-4" style="display:grid;grid-template-columns: 0.2fr 2.4fr 1.2fr 0.2fr;">`;
+        skuDb.row[arr[i].SKU] += `<div class="gap-4 mb-4" style="display:grid;grid-template-columns: 0.2fr 0.2fr 2.4fr 1.2fr 0.2fr;">`;
 
         skuDb.url[arr[i].SKU] += `<div><img data-modal src="uploads/${arr[i].Tags}.png" alt="" width="55" class="cart-img"></div>`; 
 
@@ -166,6 +132,7 @@ function insertToParent(arr) {
         
         skuDb.comments[arr[i].SKU] += `<div class="comments flex flex-col"><input class="cart-textarea p-4" value="${arr[i].comments}"></div>`;
         
+        skuDb.row[arr[i].SKU] += `<div contenteditable="true" class="numericOrder">${i+1}</div>`;
         skuDb.row[arr[i].SKU] += skuDb.url[arr[i].SKU];
         skuDb.row[arr[i].SKU] += skuDb.tags[arr[i].SKU];
         skuDb.row[arr[i].SKU] += skuDb.comments[arr[i].SKU];
@@ -201,7 +168,7 @@ function insertToParent(arr) {
                     <div class="cart-header p-4 flex items-center gap-4">
                         <div class="discussion" style="font-size: 2em;"></div>
 
-                        <div contenteditable="true" style="width: 45px;" class="tagCount border-2 border-black">${countOccurence(skuDb.row[key], "cart-textarea")}</div>
+                        <div contenteditable="true" style="width: 45px; height:40px" class="tagCount border-2 border-black">${countOccurence(skuDb.row[key], "cart-textarea")}</div>
                         <div contenteditable="true" class="flex-1 title-sku">${key}</div> 
                         <div class="flagContainer">
                             <img src="${flagIcons(skuDb.flags[key])}" alt="Flags" width="45" class="flag">
@@ -230,7 +197,7 @@ function insertToParent(arr) {
                         <div class="discussion" style="font-size: 2em;"></div>
 
                         <div class="test"></div>
-                        <div contenteditable="true" style="width: 45px;" class="tagCount border-2 border-black">${countOccurence(skuDb.row[key], "cart-textarea")}</div>
+                        <div contenteditable="true" style="width: 45px; height:40px" class="tagCount border-2 border-black">${countOccurence(skuDb.row[key], "cart-textarea")}</div>
                         <div contenteditable="true" class="flex-1 title-sku">${key}</div> 
                         <div class="flagContainer">
                             <img src="${flagIcons(skuDb.flags[key])}" alt="Flags" width="45" class="flag">
@@ -254,15 +221,6 @@ function insertToParent(arr) {
     deleteRowsEvent();
 
     const threeDots = document.querySelectorAll('.discussion');
-    
-    
-
-    // document.getElementById('skuTab').addEventListener('click', (e) => {
-    //     const menus = document.querySelectorAll('.menu');
-    //     menus.forEach(menu => {
-    //         menu.classList.remove('show');
-    //     });
-    // });
 
     threeDots.forEach(dot => {
         dot.addEventListener('click', (e) => {
@@ -274,73 +232,35 @@ function insertToParent(arr) {
                 menu.addEventListener('click', (e) => {
                     if(e.target.textContent == "Deactivate" || e.target.textContent == "Restore" ) {
                         e.target.parentElement.parentElement.parentElement.classList.toggle('nonActiveCart');
-                    } else {
+                    } else if (e.target.textContent == "Delete permanently"){
                         e.target.parentElement.parentElement.parentElement.remove();
-                    }
+                    } 
                 });
             });
 
         }); 
     });
 
-    // const deleteTagBtn = document.querySelectorAll('.deleteTag'),
-    //       imgTags = document.querySelectorAll('.cart-img');
-          
-    // deleteTagBtn.forEach((btn, id) => {
-    //     btn.addEventListener('click', (e) => {
-    //         const cart = e.target.parentElement.parentElement.parentElement.parentElement.parentElement,
-    //               tagCnt = cart.querySelector('.tagCount');
-    //         e.target.parentElement.remove();
-    //         imgTags[id].remove();
-    //         tagCnt.textContent = tagCnt.textContent - 1;
-    //     });
-    // });
+    document.getElementById('skuTab').addEventListener('click', (e) => {
+        const menus = document.querySelectorAll('.menu');
+
+        if(e.target.className != 'discussion') {
+            menus.forEach(menu => {
+                menu.classList.remove('show');
+            });
+        }
+    });
 
 
-    
-
-    // const deleteActive = document.querySelectorAll('.deleteActive');
-    // deleteActive.forEach(btn => {
-        
-    //         btn.addEventListener('click', (e) => {
-    //             //console.log(e.target.parentElement.parentElement);
-                
-    //             if (isActive == true) {
-    //                 const cart = e.target.parentElement.parentElement,
-    //                 sku = cart.querySelector('.flex-1').textContent;
-                
-               
-                    
-    //                 for (let i=0; i<allActiveValue.length; i++) {
-                        
-    //                     if (Object.values(allActiveValue[i]).indexOf(sku) > -1) {
-    //                         allNonActiveValue.push(allActiveValue[i]);
-    //                         allActiveValue.splice(i, 1);
-    //                         i--;
-    //                     }
-    //                 }
-
-    //                 insertToParent(allActiveValue);
-    //             } else {
-    //                 const cart = e.target.parentElement.parentElement,
-    //                 sku = cart.querySelector('.flex-1').textContent;
-                
-    //                 for (let i=0; i<allNonActiveValue.length; i++) {
-                        
-    //                     if (Object.values(allNonActiveValue[i]).indexOf(sku) > -1) {
-    //                         allNonActiveValue.splice(i, 1);
-    //                         i--;
-    //                     }
-    //                 }
-
-    //                 insertToParent(allNonActiveValue);
-    //             }
-                
-
-    //         });
-      
-            
-    // });
+    $('div[contenteditable]').keydown(function(e) {
+        // trap the return key being pressed
+        if (e.keyCode === 13) {
+            // insert 2 br tags (if only one br tag is inserted the cursor won't go to the next line)
+            document.execCommand('insertHTML', false, '<br/>');
+            // prevent the default behaviour of return key pressed
+            return false;
+        }
+    });
 
 }
 
@@ -445,14 +365,18 @@ search.addEventListener('keyup', (e) => {
     let carts = document.querySelectorAll('.cart');
     let cartsArr = [];
     carts.forEach(cart => {
-        let temp = cart.childNodes;
-        temp.forEach(item => {
-            if (item.nodeName == "DIV") {
-                if (item.className.includes("cart-header") == true) {
+        if(!cart.className.includes("nonActiveCart")){
+            let temp = cart.childNodes;
+            temp.forEach(item => {
+                if (item.nodeName == "DIV") {
+                    // if (item.className.includes("cart-header") == true) {
+                    //     cartsArr.push(item);
+                    // } 
                     cartsArr.push(item);
-                } 
-            }
-        });
+                }
+            });
+        }
+        
     });
 
     cartsArr.forEach(cart => {
@@ -464,12 +388,6 @@ search.addEventListener('keyup', (e) => {
         tags.forEach(tag => {
             stringTemp += tag.textContent.trim().substring(0, tag.textContent.trim().length-1).toUpperCase();
         });
-        // tags.forEach(tag => {
-            
-        //     stringTemp += tag.value.toUpperCase();
-            
-        // });
-        
         if (title.includes(searchValue) || stringTemp.includes(searchValue)) {
             cart.parentElement.style.display = '';
         } else {
@@ -523,49 +441,52 @@ function flagAndTagsChange() {
             e.preventDefault();
         });
 
-        count.addEventListener('focusout', (e) => {
+        count.addEventListener('keyup', (e) => {
             e.preventDefault();
             const currentCount = e.target.textContent,
                   rows = e.target.parentElement.parentElement.querySelectorAll('.mb-4'),
                   cartBody = e.target.parentElement.parentElement.querySelector('.cart-body');
             
-        
-            if (rows.length < currentCount) {
-                const cnt = currentCount - rows.length;
-                
-                for (let i=0; i<cnt; i++) {
-
-                    let row = `
-                    <div class="gap-4 mb-4" style="display:grid;grid-template-columns: 0.2fr 2.4fr 1.2fr 0.2fr;">
-                        <div><img data-modal src="cameraImg/drop_file.png" alt="" width="55" class="cart-img"></div>
-                        <div class="tags flex flex-1 flex-col gap-4">
-                        <div class="custom-input">
-                            <input type="text" class="custom-input_input" oninput="addSpan(event)" list="tags">
-                        </div><!--separator-->
-                        </div>
-                        <div class="comments flex flex-col">
-                        <input class="cart-textarea p-4" placeholder="Comment">
-                        </div>
-                        <div class="deleteRow">X</div>
-                    </div>
-                    `;
+            if (e.key == "Enter") {
+                if (rows.length < currentCount) {
+                    const cnt = currentCount - rows.length;
                     
+                    for (let i=0; i<cnt; i++) {
 
-                    cartBody.insertAdjacentHTML('beforeend', row);
-
-                    deleteRowsEvent();
-                    modalInsert();
+                        let row = `
+                        <div class="gap-4 mb-4" style="display:grid;grid-template-columns: 0.2fr 0.2fr 2.4fr 1.2fr 0.2fr;">
+                            <div contenteditable="true" class="numericOrder">${rows.length+i+1}</div>
+                            <div><img data-modal src="cameraImg/drop_file.png" alt="" width="55" class="cart-img"></div>
+                            <div class="tags flex flex-1 flex-col gap-4">
+                            <div class="custom-input">
+                                <input type="text" class="custom-input_input" oninput="addSpan(event)" list="tags">
+                            </div><!--separator-->
+                            </div>
+                            <div class="comments flex flex-col">
+                            <input class="cart-textarea p-4" placeholder="Comment">
+                            </div>
+                            <div class="deleteRow">X</div>
+                        </div>
+                        `;
                         
-                }
-            } else if (currentCount > 0){
-                let cnt = 0;
-                rows.forEach(row => {
-                    cnt++;
-                    if (cnt > currentCount) {
-                        row.remove();
+
+                        cartBody.insertAdjacentHTML('beforeend', row);
+
+                        deleteRowsEvent();
+                        modalInsert();
+                            
                     }
-                });
+                } else if (currentCount > 0){
+                    let cnt = 0;
+                    rows.forEach(row => {
+                        cnt++;
+                        if (cnt > currentCount) {
+                            row.remove();
+                        }
+                    });
+                }
             }
+            
             
         });
     });
@@ -831,11 +752,13 @@ function skuRecords() {
 document.querySelector('div.sortBtn').addEventListener('click', (e) => {
 
     let isPressed = checkForPressed(e);
-    let temp = document.querySelectorAll('.cart-header .flex-1');
+    let cartHeader = document.querySelectorAll('.cart-header .flex-1');
     let arr = [];
 
-    temp.forEach(item => {
-        arr.push(item);
+    cartHeader.forEach(item => {
+        //if(!item.parentElement.parentElement.parentElement.className.includes("nonActiveCart")){
+            arr.push(item);
+        //}
     });
 
 
@@ -854,39 +777,11 @@ document.querySelector('div.sortBtn').addEventListener('click', (e) => {
     
 });
 
-// document.querySelector('div.sortByNum').addEventListener('click', (e) => {
-    
-//     let isPressed = checkForPressed(e);
-//     let temp = document.querySelectorAll('.tagCount');
-//     let arr = [];
-//     temp.forEach(item => {
-//         arr.push(item);
-//     });
-
-
-//     if (isPressed) {
-        
-//         arr = sortDesc(arr);
-        
-//         changeParent(arr);
-
-//     } else {
-       
-//         arr = sortAsc(arr);
-        
-
-//         changeParent(arr);
-//     }
-    
-
-    
-// });
-
 
 function changeParent(arr) {
     let blocks = [];
     arr.forEach(item => {
-        blocks.push(item.parentElement.parentElement);
+        blocks.push(item.parentElement.parentElement.parentElement);
     });
 
     let parent = document.querySelector('.cart-container');
