@@ -331,8 +331,8 @@ span {
     width: 1em;
     height: 1em;
     /* decoration */
-    color: #FFFFFF;
-    background-color: #000000;
+    color: #000000;
+    background-color: #EDEBD7;
     border-radius: 50%;
     /* center align */
     line-height: 1;

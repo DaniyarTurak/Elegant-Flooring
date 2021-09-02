@@ -41,19 +41,24 @@ activeCheckbox.addEventListener('click', (e) => {
         document.getElementById("checkedTxt").innerHTML = "Active";
         document.getElementById("checkedImg").src = "icons/checked-blue.svg";
         document.getElementById('checkedTxt').style.color = '#0078FF';
-        
-        
     }
    
 });
 
 addSkuBtn.addEventListener('click', (e) => {
 
-
     const newcart = `
         <div class="cart">
             <div class="flex flex-col">
+                <div class="absolute menu" style="top: 16px; left:20px; width: 200px; background-color: white; border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
+                    <span style="width: 100%; border-bottom: 1px solid black;">Deactivate</span>
+                    <span style="width: 100%;">Delete permanently</span>
+                </div>
+                <div class="menu" style="background: rgba(0, 0, 0, 0.5);position: absolute;top: 0;bottom: 0;left: 0;right: 0; z-index: 100;"></div>
+
                 <div class="cart-header p-4 flex items-center gap-4">
+                    <div class="discussion" style="font-size: 2em;"></div>
+                    
                     <div contenteditable="true" style="width: 45px;" class="tagCount border-2 border-black">1</div>
                     <div contenteditable="true" class="flex-1 title-sku"></div>
                     <div class="flagContainer">
@@ -87,6 +92,11 @@ addSkuBtn.addEventListener('click', (e) => {
     fillDataList();
     modalInsert();
     deleteRowsEvent();
+
+    threeDotsFunc();
+
+    divNotAdding();
+    numericOrderFunc();
 });
 
 function insertToParent(arr) {
@@ -132,7 +142,7 @@ function insertToParent(arr) {
         
         skuDb.comments[arr[i].SKU] += `<div class="comments flex flex-col"><input class="cart-textarea p-4" value="${arr[i].comments}"></div>`;
         
-        skuDb.row[arr[i].SKU] += `<div contenteditable="true" class="numericOrder">${i+1}</div>`;
+        skuDb.row[arr[i].SKU] += `<div contenteditable="true" class="numericOrder">${countOccurence(skuDb.row[arr[i].SKU], "cart-textarea")+1}</div>`;
         skuDb.row[arr[i].SKU] += skuDb.url[arr[i].SKU];
         skuDb.row[arr[i].SKU] += skuDb.tags[arr[i].SKU];
         skuDb.row[arr[i].SKU] += skuDb.comments[arr[i].SKU];
@@ -196,7 +206,6 @@ function insertToParent(arr) {
                     <div class="cart-header p-4 flex items-center gap-4 ">
                         <div class="discussion" style="font-size: 2em;"></div>
 
-                        <div class="test"></div>
                         <div contenteditable="true" style="width: 45px; height:40px" class="tagCount border-2 border-black">${countOccurence(skuDb.row[key], "cart-textarea")}</div>
                         <div contenteditable="true" class="flex-1 title-sku">${key}</div> 
                         <div class="flagContainer">
@@ -220,6 +229,59 @@ function insertToParent(arr) {
     modalInsert();
     deleteRowsEvent();
 
+    threeDotsFunc();
+
+
+    divNotAdding();
+
+
+    numericOrderFunc();
+
+}
+
+function numericOrderFunc() {
+    const numerics = document.querySelectorAll('.numericOrder');
+    numerics.forEach(num => {
+        num.addEventListener('keyup', (e) => {
+            if (e.key == "Enter") {
+                const body = e.target.parentElement.parentElement,
+                orders = body.querySelectorAll('.numericOrder');
+                let arr = [];
+                orders.forEach(order => {
+                    arr.push(order);
+                    if (order === e.target) {
+                    } else if (order.textContent == e.target.textContent) {
+                        order.textContent = +order.textContent + 1;
+                    } else if (order.textContent < e.target.textContent) {
+                        order.textContent = +order.textContent - 1;
+                    }
+                });
+                arr = sortAsc(arr);
+                
+                arr.forEach((item, id) => {
+                    item.textContent = id+1; 
+                });
+                
+                const rows = [];
+                arr.forEach(item => {
+                    rows.push(item.parentElement);
+                });
+
+                console.log(rows);
+                body.innerHTML = "";
+
+                rows.forEach(row => {
+                    body.append(row);
+                });
+            }
+            
+            
+            
+        });
+    });
+}
+
+function threeDotsFunc() {
     const threeDots = document.querySelectorAll('.discussion');
 
     threeDots.forEach(dot => {
@@ -250,8 +312,9 @@ function insertToParent(arr) {
             });
         }
     });
+}
 
-
+function divNotAdding() {
     $('div[contenteditable]').keydown(function(e) {
         // trap the return key being pressed
         if (e.keyCode === 13) {
@@ -261,7 +324,6 @@ function insertToParent(arr) {
             return false;
         }
     });
-
 }
 
 function deleteRowsEvent() {
@@ -290,62 +352,40 @@ saveSkuBtn.addEventListener('click', (e) => {
 
     const carts = document.querySelectorAll('.cart');
 
-    if (isActive == true) {
-        carts.forEach(cart => {
-            const sku = cart.querySelector('.cart-header .flex-1').textContent;
-            const comment = cart.querySelector('.cart-textarea');
-            const flagImg = cart.querySelector('.flagContainer .flag');
-            const flag = getValueFromSrc(flagImg.src);
-    
-            const tags = cart.querySelectorAll('.tags input');
+    carts.forEach(cart => {
+        const sku = cart.querySelector('.cart-header .flex-1').textContent;
+        const comment = cart.querySelectorAll('.cart-textarea');
+        const flagImg = cart.querySelector('.flagContainer .flag');
+        const flag = getValueFromSrc(flagImg.src);
+        const tagContainer = cart.querySelectorAll('.tags');
+       
+        
+        tagContainer.forEach((tagCont, id) => {
+            const tags = tagCont.querySelectorAll('span');
+            let stringTag = '';
             tags.forEach(tag => {
-                // sendArr.push([sku, tag.value, "Active", comment.textContent, flag]);
-                
-                skuArr.push(sku);
-                tagsArr.push(tag.value);
-                activeArr.push("Active");
-                commentsArr.push(comment.textContent);
-                flagsArr.push(flag);
+                stringTag += tag.textContent.trim().substring(0, tag.textContent.trim().length-1).trim() + '-';
             });
-        });
+            stringTag = stringTag.substring(0, stringTag.length-1);
 
-        for (let i =0; i<allNonActiveValue.length;i++) {
-            skuArr.push(allNonActiveValue[i].SKU);
-            tagsArr.push(allNonActiveValue[i].Tags);
-            activeArr.push(allNonActiveValue[i].Active);
-            commentsArr.push(allNonActiveValue[i].comments);
-            flagsArr.push(allNonActiveValue[i].Flags);
-        }
-
-
-    } else {
-        carts.forEach(cart => {
-            const sku = cart.querySelector('.cart-header .flex-1').textContent;
-            const comment = cart.querySelector('.cart-textarea');
-            const flagImg = cart.querySelector('.flagContainer .flag');
-            const flag = getValueFromSrc(flagImg.src);
-    
-            const tags = cart.querySelectorAll('.tags input');
-            tags.forEach(tag => {
-                // sendArr.push([sku, tag.value, "Active", comment.textContent, flag]);
-                
+            
+            if(cart.className.includes('nonActiveCart')) {
                 skuArr.push(sku);
-                tagsArr.push(tag.value);
+                tagsArr.push(stringTag);
                 activeArr.push("Non-Active");
-                commentsArr.push(comment.textContent);
+                commentsArr.push(comment[id].value);
                 flagsArr.push(flag);
-            });
+            } else {
+                skuArr.push(sku);
+                tagsArr.push(stringTag);
+                activeArr.push("Active");
+                commentsArr.push(comment[id].value);
+                flagsArr.push(flag);
+            }
+            
         });
 
-        for (let i =0; i<allActiveValue.length;i++) {
-            skuArr.push(allActiveValue[i].SKU);
-            tagsArr.push(allActiveValue[i].Tags);
-            activeArr.push(allActiveValue[i].Active);
-            commentsArr.push(allActiveValue[i].comments);
-            flagsArr.push(allActiveValue[i].Flags);
-        }
-    }
-    
+    });
     
     const url = `${skuUrl}?callback=callSku&sku=${skuArr}&tags=${tagsArr}&active=${activeArr}&comments=${commentsArr}&flags=${flagsArr}&action=send`;
 
@@ -521,17 +561,18 @@ function fillDataList() {
 
 }
 
+function closeModal() {
+    const modal = document.querySelector('.modal');
+    modal.classList.add('hide');
+    modal.classList.remove('show');
+    document.body.style.overflow = ''; //  браузер решит что поставить
+}
+
 function modalInsert() {
     // Modal
     const modalTriggers = document.querySelectorAll('[data-modal]'),
     modal = document.querySelector('.modal'),
     modalClsBtn = document.querySelector('[data-close]');
-
-    function closeModal() {
-        modal.classList.add('hide');
-        modal.classList.remove('show');
-        document.body.style.overflow = ''; //  браузер решит что поставить
-    }
 
     modalTriggers.forEach(tagImg => {
         tagImg.addEventListener('click', (e) => {
@@ -665,6 +706,7 @@ function dropImg(modal, mainImg) {
             
             btnSave.addEventListener('click', (e) => {
                 mainImg.src = reader.result;
+                closeModal();
             });
             
 
@@ -672,32 +714,41 @@ function dropImg(modal, mainImg) {
                 formContent.addEventListener('submit', (e) => {
                 e.preventDefault();
 
-                let imgId = -1;
+                // let imgId = -1;
                 let targetTag = "";
 
-                const imgContainer = document.querySelectorAll('.cart-img');
-                imgContainer.forEach((img, id) => {
-                    if (mainImg == img) {
-                        imgId = id;
-                    }
-                });
-
-                const tagContainer = document.querySelectorAll('.cart-input');
-                tagContainer.forEach((tag, id) => {
-                    if (imgId == id) {
-                        targetTag = tag;
-                    }
-                });
-
-                // Object.defineProperty(inputElement.files[0], 'name', {
-                //     writable: true,
-                //     value: targetTag.value
+                // const imgContainer = document.querySelectorAll('.cart-img');
+                // imgContainer.forEach((img, id) => {
+                //     if (mainImg == img) {
+                //         imgId = id;
+                //     }
                 // });
+
+
+                const fieldTag = mainImg.parentElement.parentElement.querySelectorAll('.custom-input_word');
+                fieldTag.forEach(field => {
+                    targetTag += field.textContent.trim().substring(0, field.textContent.trim().length-1).trim() + "-";
+                });
+
+                targetTag = targetTag.substring(0, targetTag.length-1);
+                
+                
+                // const tagContainer = document.querySelectorAll('.cart-input');
+                // tagContainer.forEach((tag, id) => {
+                //     if (imgId == id) {
+                //         targetTag = tag;
+                //     }
+                // });
+
+                Object.defineProperty(inputElement.files[0], 'name', {
+                    writable: true,
+                    value: targetTag
+                });
 
                 const endpoint = "upload.php";
                 const formData= new FormData();
 
-                formData.append("inpFile", inputElement.files[0], `${targetTag.value}.png`);
+                formData.append("inpFile", inputElement.files[0], `${targetTag}.png`);
                 
                 fetch(endpoint, {
                     method: "post",
