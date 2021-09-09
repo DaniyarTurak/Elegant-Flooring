@@ -389,6 +389,10 @@ saveSkuBtn.addEventListener('click', (e) => {
     
     const url = `${skuUrl}?callback=callSku&sku=${skuArr}&tags=${tagsArr}&active=${activeArr}&comments=${commentsArr}&flags=${flagsArr}&action=send`;
 
+    jQuery.ajaxSetup({
+        async: false
+      });
+      
     let request = jQuery.ajax({
         crossDomain: true,
         url: url ,

@@ -153,6 +153,11 @@ saveBtn.addEventListener('click', (e) => {
 
     const url = `${accUrl}?callback=callAcc&acc=${accArr}&shops=${shopsArr}&action=save`;
 
+    jQuery.ajaxSetup({
+        async: false
+      });
+      
+      
     let request = jQuery.ajax({
         crossDomain: true,
         url: url ,
