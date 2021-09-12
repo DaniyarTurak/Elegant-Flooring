@@ -855,11 +855,11 @@ function checkForPressed(e) {
     if (e.target.tagName == "DIV") {
         if (e.target.style.backgroundColor == 'white') {
             for (let i of e.target.childNodes) {
-                console.log(i);
-                if (i.src == "icons/sort-aplhabet-desc.svg") {
-                    i.src = "icons/sort-aplhabet-asc.svg";
-                } else if (i.src == "icons/sort-aplhabet-asc.svg") {
-                    i.src = "icons/sort-aplhabet-desc.svg";
+                console.log(i.src);
+                if (i.src == "elegant_flooring/icons/sort-aplhabet-desc.svg") {
+                    i.src = "elegant_flooring/icons/sort-aplhabet-asc.svg";
+                } else if (i.src == "elegant_flooring/icons/sort-aplhabet-asc.svg") {
+                    i.src = "elegant_flooring/icons/sort-aplhabet-desc.svg";
                 }
             }
 
@@ -868,10 +868,10 @@ function checkForPressed(e) {
 
         } else {
             for (let i of e.target.childNodes) {
-                if (i.src == "icons/sort-aplhabet-asc.svg") {
-                    i.src = "icons/sort-aplhabet-desc.svg";
-                } else if (i.src == "icons/sort-aplhabet-desc.svg") {
-                    i.src = "icons/sort-aplhabet-asc.svg";
+                if (i.src == "elegant_flooring/icons/sort-aplhabet-asc.svg") {
+                    i.src = "elegant_flooring/icons/sort-aplhabet-desc.svg";
+                } else if (i.src == "elegant_flooring/icons/sort-aplhabet-desc.svg") {
+                    i.src = "elegant_flooring/icons/sort-aplhabet-asc.svg";
                 } 
             }
 
@@ -882,20 +882,20 @@ function checkForPressed(e) {
     } else {
         if (e.target.parentElement.style.backgroundColor == 'white') {
 
-            if (e.target.src == "icons/sort-aplhabet-desc.svg") {
-                e.target.src = "icons/sort-aplhabet-asc.svg";
-            } else if (e.target.src == "icons/sort-aplhabet-asc.svg") {
-                e.target.src = "icons/sort-aplhabet-desc.svg";
+            if (e.target.src == "elegant_flooring/icons/sort-aplhabet-desc.svg") {
+                e.target.src = "elegant_flooring/icons/sort-aplhabet-asc.svg";
+            } else if (e.target.src == "elegant_flooring/icons/sort-aplhabet-asc.svg") {
+                e.target.src = "elegant_flooring/icons/sort-aplhabet-desc.svg";
             } 
             
             e.target.parentElement.style.backgroundColor = '#EDEBD7';
             isPressed = false;
         } else {
 
-            if (e.target.src == "icons/sort-aplhabet-asc.svg") {
-                e.target.src = "icons/sort-aplhabet-desc.svg";
-            } else if (e.target.src == "icons/sort-aplhabet-desc.svg") {
-                e.target.src = "icons/sort-aplhabet-asc.svg";
+            if (e.target.src == "elegant_flooring/icons/sort-aplhabet-asc.svg") {
+                e.target.src = "elegant_flooring/icons/sort-aplhabet-desc.svg";
+            } else if (e.target.src == "elegant_flooring/icons/sort-aplhabet-desc.svg") {
+                e.target.src = "elegant_flooring/icons/sort-aplhabet-asc.svg";
             }
             
             e.target.parentElement.style.backgroundColor = 'white';
