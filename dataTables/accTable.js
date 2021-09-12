@@ -9,16 +9,22 @@ accRecords();
 const searchAcc = document.getElementById('searchInpAcc');
 searchAcc.addEventListener('keyup', (e) => {
     let searchValue = searchAcc.value.toUpperCase();
-    console.log(searchValue);
-    const accValues = document.querySelectorAll(['[name="account"]']);
+    
+    const accValues = document.querySelectorAll(['#salesTable input']);
+    
+    let cnt = 0;
     accValues.forEach(acc => {
+        cnt++;
         let target = acc.value.toUpperCase();
+        
         if (target.includes(searchValue)) {
             acc.parentElement.parentElement.style.display = '';
-        } else {
+           
+        } else if (cnt%2 != 0){
             acc.parentElement.parentElement.style.display = 'none';
         }
     });
+
     // let carts = document.querySelectorAll('.cart');
     // let cartsArr = [];
     // carts.forEach(cart => {

@@ -51,7 +51,7 @@ addSkuBtn.addEventListener('click', (e) => {
         <div class="cart">
             <div class="flex flex-col">
                 <div class="absolute menu" style="top: 16px; left:20px; width: 200px; background-color: white; border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
-                    <span style="width: 100%; border-bottom: 1px solid black;">Deactivate</span>
+                    <span style="width: 100%; border-bottom: 1px solid black;">Archive</span>
                     <span style="width: 100%;">Delete permanently</span>
                 </div>
                 <div class="menu" style="background: rgba(0, 0, 0, 0.5);position: absolute;top: 0;bottom: 0;left: 0;right: 0; z-index: 100;"></div>
@@ -170,7 +170,7 @@ function insertToParent(arr) {
                 <div class="flex flex-col relative mb">
             
                     <div class="absolute menu" style="top: 16px; left:20px; width: 200px; background-color: white; border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
-                        <span style="width: 100%; border-bottom: 1px solid black;">Deactivate</span>
+                        <span style="width: 100%; border-bottom: 1px solid black;">Archive</span>
                         <span style="width: 100%;">Delete permanently</span>
                     </div>
                     <div class="menu" style="background: rgba(0, 0, 0, 0.5);position: absolute;top: 0;bottom: 0;left: 0;right: 0; z-index: 100;"></div>
@@ -292,7 +292,7 @@ function threeDotsFunc() {
             menus.forEach(menu => {
                 menu.classList.add('show');
                 menu.addEventListener('click', (e) => {
-                    if(e.target.textContent == "Deactivate" || e.target.textContent == "Restore" ) {
+                    if(e.target.textContent == "Archive" || e.target.textContent == "Restore" ) {
                         e.target.parentElement.parentElement.parentElement.classList.toggle('nonActiveCart');
                     } else if (e.target.textContent == "Delete permanently"){
                         e.target.parentElement.parentElement.parentElement.remove();
@@ -684,11 +684,11 @@ function dropImg(modal, mainImg) {
     const modalContent = modal.querySelector('.modal__content');
     modalContent.append(div);
 
-    const formModal = document.createElement('form');
-    formModal.classList.add('myForm');
+    // const formModal = document.createElement('form');
+    // formModal.classList.add('myForm');
 
-    modalContent.append(formModal);
-    formModal.append(btnSave);
+    modalContent.append(btnSave); //formModal
+    //formModal.append(btnSave);
 
     const inputElement = modal.querySelector(".drop-zone__input");
     const dropZoneElement = inputElement.closest(".drop-zone");
@@ -710,14 +710,6 @@ function dropImg(modal, mainImg) {
             
             btnSave.addEventListener('click', (e) => {
                 mainImg.src = reader.result;
-                closeModal();
-            });
-            
-
-            const formContent = document.querySelector('.myForm');
-                formContent.addEventListener('submit', (e) => {
-                e.preventDefault();
-
                 // let imgId = -1;
                 let targetTag = "";
 
@@ -755,10 +747,20 @@ function dropImg(modal, mainImg) {
                 formData.append("inpFile", inputElement.files[0], `${targetTag}.png`);
                 
                 fetch(endpoint, {
-                    method: "post",
+                    method: "get",
                     body: formData
                 }).catch(console.error);
+
+                closeModal();
             });
+            
+
+            // const formContent = document.querySelector('.myForm');
+            //     formContent.addEventListener('submit', (e) => {
+            //     e.preventDefault();
+
+                
+            // });
 
             const title = dropZoneElement.querySelector('.drop-zone__prompt');
             title.remove();
@@ -853,10 +855,11 @@ function checkForPressed(e) {
     if (e.target.tagName == "DIV") {
         if (e.target.style.backgroundColor == 'white') {
             for (let i of e.target.childNodes) {
+                console.log(i);
                 if (i.src == "icons/sort-aplhabet-desc.svg") {
                     i.src = "icons/sort-aplhabet-asc.svg";
-                } else if (i.src == "icons/number-desc-sort.svg") {
-                    i.src = "icons/number-asc-sort.svg";
+                } else if (i.src == "icons/sort-aplhabet-asc.svg") {
+                    i.src = "icons/sort-aplhabet-desc.svg";
                 }
             }
 
@@ -867,10 +870,9 @@ function checkForPressed(e) {
             for (let i of e.target.childNodes) {
                 if (i.src == "icons/sort-aplhabet-asc.svg") {
                     i.src = "icons/sort-aplhabet-desc.svg";
-                } else if (i.src == "icons/number-asc-sort.svg") {
-                    i.src = "icons/number-desc-sort.svg";
-                }
-                
+                } else if (i.src == "icons/sort-aplhabet-desc.svg") {
+                    i.src = "icons/sort-aplhabet-asc.svg";
+                } 
             }
 
             e.target.style.backgroundColor = 'white';
@@ -882,18 +884,20 @@ function checkForPressed(e) {
 
             if (e.target.src == "icons/sort-aplhabet-desc.svg") {
                 e.target.src = "icons/sort-aplhabet-asc.svg";
-            } else if (e.target.src == "icons/number-desc-sort.svg") {
-                e.target.src = "icons/number-asc-sort.svg";
-            }
+            } else if (e.target.src == "icons/sort-aplhabet-asc.svg") {
+                e.target.src = "icons/sort-aplhabet-desc.svg";
+            } 
+            
             e.target.parentElement.style.backgroundColor = '#EDEBD7';
             isPressed = false;
         } else {
 
             if (e.target.src == "icons/sort-aplhabet-asc.svg") {
                 e.target.src = "icons/sort-aplhabet-desc.svg";
-            } else if (e.target.src == "icons/number-asc-sort.svg") {
-                e.target.src = "icons/number-desc-sort.svg";
+            } else if (e.target.src == "icons/sort-aplhabet-desc.svg") {
+                e.target.src = "icons/sort-aplhabet-asc.svg";
             }
+            
             e.target.parentElement.style.backgroundColor = 'white';
             isPressed = true;
         }
