@@ -68,9 +68,9 @@ addSkuBtn.addEventListener('click', (e) => {
                         </div>
                     </div>
                     <div class="cart-body p-4">
-                        <div class="gap-4 mb-4" style="display:grid;grid-template-columns:  0.2fr 0.2fr 2.4fr 1.2fr 0.2fr;">
-                        <div contenteditable="true" class="numericOrder">1</div>
-                        <div><img data-modal src="cameraImg/drop_file.png" alt="" width="55" class="cart-img"></div>
+                        <div class="cart-border" style="display:grid;grid-template-columns: 0.2fr 0.2fr 2.4fr 1.2fr 0.2fr; border-bottom: 2px solid #3D3D3D;">
+                        <div contenteditable="true" class="numericOrder self-center">1</div>
+                        <div class="self-center"><img data-modal src="cameraImg/drop_file.png" alt=""  class="cart-img"></div>
                         <div class="tags flex flex-1 flex-col gap-4">
                         <div class="custom-input">
                             <input type="text" class="custom-input_input" oninput="addSpan(event)" list="tags">
@@ -79,7 +79,7 @@ addSkuBtn.addEventListener('click', (e) => {
                         <div class="comments flex flex-col">
                         <input class="cart-textarea p-4" placeholder="Comment">
                         </div>
-                        <div class="deleteRow">X</div>
+                        <div class="deleteRow self-center">X</div>
                     </div>
                 </div>
                 <br>
@@ -93,11 +93,10 @@ addSkuBtn.addEventListener('click', (e) => {
     fillDataList();
     modalInsert();
     deleteRowsEvent();
-
     threeDotsFunc();
-
-    divNotAdding();
     numericOrderFunc();
+    divNotAdding();
+    
 });
 
 function insertToParent(arr) {
@@ -123,10 +122,8 @@ function insertToParent(arr) {
         let arrWords = (arr[i].Tags).split("-");
 
         skuDb.flags[arr[i].SKU] = `${arr[i].Flags}`;
-        
-        skuDb.row[arr[i].SKU] += `<div class="gap-4 mb-4" style="display:grid;grid-template-columns: 0.2fr 0.2fr 2.4fr 1.2fr 0.2fr;">`;
-
-        skuDb.url[arr[i].SKU] += `<div><img data-modal src="uploads/${arr[i].Tags}.png" alt="" width="55" class="cart-img"></div>`; 
+    
+        skuDb.url[arr[i].SKU] += `<div class="self-center"><img data-modal src="uploads/${arr[i].Tags}.png" alt=""  class="cart-img"></div>`; 
 
         skuDb.tags[arr[i].SKU] += `<div class="tags flex flex-1 flex-col gap-4">`;
         skuDb.tags[arr[i].SKU] +=`<div class="custom-input">`;
@@ -140,14 +137,14 @@ function insertToParent(arr) {
             `;
         }
         skuDb.tags[arr[i].SKU] +=`<input type="text" class="custom-input_input" oninput="addSpan(event)" list="tags"></div><!--separator--></div>`;
-        
         skuDb.comments[arr[i].SKU] += `<div class="comments flex flex-col"><input class="cart-textarea p-4" value="${arr[i].comments}"></div>`;
         
-        skuDb.row[arr[i].SKU] += `<div contenteditable="true" class="numericOrder">${countOccurence(skuDb.row[arr[i].SKU], "cart-textarea")+1}</div>`;
+        skuDb.row[arr[i].SKU] += `<div class="cart-border" style="display:grid;grid-template-columns: 0.2fr 0.2fr 2.4fr 1.2fr 0.2fr; border-bottom: 2px solid #3D3D3D;">`;
+        skuDb.row[arr[i].SKU] += `<div contenteditable="true" class="numericOrder self-center">${countOccurence(skuDb.row[arr[i].SKU], "cart-textarea")+1}</div>`;
         skuDb.row[arr[i].SKU] += skuDb.url[arr[i].SKU];
         skuDb.row[arr[i].SKU] += skuDb.tags[arr[i].SKU];
         skuDb.row[arr[i].SKU] += skuDb.comments[arr[i].SKU];
-        skuDb.row[arr[i].SKU] += '<div class="deleteRow">X</div></div>';
+        skuDb.row[arr[i].SKU] += '<div class="deleteRow self-center">X</div></div>';
 
         skuDb.url[arr[i].SKU] = ``;
         skuDb.tags[arr[i].SKU] = ``;
@@ -229,16 +226,48 @@ function insertToParent(arr) {
     fillDataList();
     modalInsert();
     deleteRowsEvent();
-
     threeDotsFunc();
-
-
-    divNotAdding();
-
-
     numericOrderFunc();
-
+    divNotAdding();
 }
+
+function deleteRowsEvent() {
+    const deleteRows = document.querySelectorAll('.deleteRow');
+    deleteRows.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const body = e.target.parentElement.parentElement;
+            const cart = e.target.parentElement.parentElement.parentElement,
+                  tagCount = cart.querySelector('.tagCount');
+            e.target.parentElement.remove();
+            tagCount.textContent -= 1;
+
+            const orders = body.querySelectorAll('.numericOrder');
+            let arr = [];
+            orders.forEach(order => {
+                arr.push(order);
+                console.log(order);
+            });
+
+            arr = sortAsc(arr);
+                
+            arr.forEach((item, id) => {
+                item.textContent = id+1; 
+            });
+
+            const rows = [];
+            arr.forEach(item => {
+                rows.push(item.parentElement);
+            });
+
+            body.innerHTML = "";
+
+            rows.forEach(row => {
+                body.append(row);
+            });
+        });
+    });
+}
+
 
 function numericOrderFunc() {
     const numerics = document.querySelectorAll('.numericOrder');
@@ -247,10 +276,14 @@ function numericOrderFunc() {
             if (e.key == "Enter") {
                 const body = e.target.parentElement.parentElement,
                 orders = body.querySelectorAll('.numericOrder');
+
+                console.log(body);
                 let arr = [];
                 orders.forEach(order => {
                     arr.push(order);
-                    if (order === e.target) {
+                    
+                    if (order == e.target) {
+                        order.textContent = e.target.textContent;
                     } else if (order.textContent == e.target.textContent) {
                         order.textContent = +order.textContent + 1;
                     } else if (order.textContent < e.target.textContent) {
@@ -268,7 +301,6 @@ function numericOrderFunc() {
                     rows.push(item.parentElement);
                 });
 
-                console.log(rows);
                 body.innerHTML = "";
 
                 rows.forEach(row => {
@@ -327,17 +359,7 @@ function divNotAdding() {
     });
 }
 
-function deleteRowsEvent() {
-    const deleteRows = document.querySelectorAll('.deleteRow');
-    deleteRows.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const cart = e.target.parentElement.parentElement.parentElement,
-                  tagCount = cart.querySelector('.tagCount');
-            e.target.parentElement.remove();
-            tagCount.textContent -= 1;
-        });
-    });
-}
+
 
 function countOccurence (string, word) {
     return string.split(word).length - 1; // create array 
@@ -489,7 +511,7 @@ function flagAndTagsChange() {
         count.addEventListener('keyup', (e) => {
             e.preventDefault();
             const currentCount = e.target.textContent,
-                  rows = e.target.parentElement.parentElement.querySelectorAll('.mb-4'),
+                  rows = e.target.parentElement.parentElement.querySelectorAll('.cart-border'),
                   cartBody = e.target.parentElement.parentElement.querySelector('.cart-body');
             
             if (e.key == "Enter") {
@@ -499,18 +521,22 @@ function flagAndTagsChange() {
                     for (let i=0; i<cnt; i++) {
 
                         let row = `
-                        <div class="gap-4 mb-4" style="display:grid;grid-template-columns: 0.2fr 0.2fr 2.4fr 1.2fr 0.2fr;">
-                            <div contenteditable="true" class="numericOrder">${rows.length+i+1}</div>
-                            <div><img data-modal src="cameraImg/drop_file.png" alt="" width="55" class="cart-img"></div>
+                        <div class="cart-border" style="display:grid;grid-template-columns: 0.2fr 0.2fr 2.4fr 1.2fr 0.2fr; border-bottom: 2px solid #3D3D3D;">
+                            <div contenteditable="true" class="numericOrder self-center">${rows.length+i+1}</div>
+                            <div class="self-center"><img data-modal src="cameraImg/drop_file.png" alt=""  class="cart-img"></div>
                             <div class="tags flex flex-1 flex-col gap-4">
                             <div class="custom-input">
+                                <span class="custom-input_word" contenteditable="true">
+                                    checkered
+                                    <button class="x-button" onclick="deleteSpan(event)">x</button>
+                                </span>
                                 <input type="text" class="custom-input_input" oninput="addSpan(event)" list="tags">
                             </div><!--separator-->
                             </div>
                             <div class="comments flex flex-col">
-                            <input class="cart-textarea p-4" placeholder="Comment">
+                                <input class="cart-textarea p-4" placeholder="Comment">
                             </div>
-                            <div class="deleteRow">X</div>
+                            <div class="deleteRow self-center">X</div>
                         </div>
                         `;
                         
@@ -519,6 +545,8 @@ function flagAndTagsChange() {
 
                         deleteRowsEvent();
                         modalInsert();
+                        numericOrderFunc();
+                        divNotAdding();
                             
                     }
                 } else if (currentCount > 0){

@@ -1,7 +1,7 @@
 document.querySelectorAll('.buttonContainer button').forEach((item, id) => {
     let tabPanels=document.querySelectorAll(".tabContainer .tabPanel");
     if (id == 0) { 
-        item.style.cssText = 'background-color: #FFFFF0;';
+        item.style.cssText = 'background-color: #273550;';
         tabPanels[id].style.display="block";
     }
 
@@ -10,10 +10,10 @@ document.querySelectorAll('.buttonContainer button').forEach((item, id) => {
 
         for (let btn of parent.childNodes) {
             if (btn.nodeName == "BUTTON") {
-                btn.style.cssText = 'background-color: #A39594';
+                btn.style.cssText = 'background-color: #273236';
             }
         }
-        item.style.cssText = 'background-color: #FFFFF0;';
+        item.style.cssText = 'background-color: #273550;';
 
         tabPanels.forEach(node => {
             node.style.display="none";
