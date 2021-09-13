@@ -48,41 +48,42 @@ activeCheckbox.addEventListener('click', (e) => {
 addSkuBtn.addEventListener('click', (e) => {
 
     const newcart = `
-        <div class="cart">
-            <div class="flex flex-col">
-                <div class="absolute menu" style="top: 16px; left:20px; width: 200px; background-color: white; border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
-                    <span style="width: 100%; border-bottom: 1px solid black;">Archive</span>
-                    <span style="width: 100%;">Delete permanently</span>
-                </div>
-                <div class="menu" style="background: rgba(0, 0, 0, 0.5);position: absolute;top: 0;bottom: 0;left: 0;right: 0; z-index: 100;"></div>
 
-                <div class="cart-header p-4 flex items-center gap-4">
-                    <div class="discussion" style="font-size: 2em;"></div>
-                    
-                    <div contenteditable="true" style="width: 45px;" class="tagCount border-2 border-black">1</div>
-                    <div contenteditable="true" class="flex-1 title-sku"></div>
-                    <div class="flagContainer">
-                        <img src="flags/gray_circle.png" alt="" width="45" class="flag">
+        <div class="cart">
+                <div class="flex flex-col relative mb">
+            
+                    <div class="absolute menu" style="top: 16px; left:20px; width: 200px; background-color: rgb(44, 47, 56); border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
+                        <span style="width: 100%; border-bottom: 1px solid black;">Archive</span>
+                        <span style="width: 100%;">Delete permanently</span>
+                    </div>
+                    <div class="menu" style="background: rgba(0, 0, 0, 0.5);position: absolute;top: 0;bottom: 0;left: 0;right: 0; z-index: 100;"></div>
+
+                    <div class="cart-header p-4 flex items-center gap-4">
+                        <div class="discussion" style="font-size: 2em;"></div>
+
+                        <div contenteditable="true" style="width: 45px; height:40px" class="tagCount border-2 border-black">1</div>
+                        <div contenteditable="true" class="flex-1 title-sku">SKU</div> 
+                        <div class="flagContainer">
+                            <img src="flags/gray_circle.png" alt="Flags" width="45" class="flag">
+                        </div>
+                    </div>
+                    <div class="cart-body p-4">
+                        <div class="gap-4 mb-4" style="display:grid;grid-template-columns:  0.2fr 0.2fr 2.4fr 1.2fr 0.2fr;">
+                        <div contenteditable="true" class="numericOrder">1</div>
+                        <div><img data-modal src="cameraImg/drop_file.png" alt="" width="55" class="cart-img"></div>
+                        <div class="tags flex flex-1 flex-col gap-4">
+                        <div class="custom-input">
+                            <input type="text" class="custom-input_input" oninput="addSpan(event)" list="tags">
+                        </div><!--separator-->
+                        </div>
+                        <div class="comments flex flex-col">
+                        <input class="cart-textarea p-4" placeholder="Comment">
+                        </div>
+                        <div class="deleteRow">X</div>
                     </div>
                 </div>
-                <div class="cart-body p-4">
-                    <div class="gap-4 mb-4" style="display:grid;grid-template-columns:  0.2fr 0.2fr 2.4fr 1.2fr 0.2fr;">
-                    <div contenteditable="true" class="numericOrder">1</div>
-                    <div><img data-modal src="cameraImg/drop_file.png" alt="" width="55" class="cart-img"></div>
-                    <div class="tags flex flex-1 flex-col gap-4">
-                    <div class="custom-input">
-                        <input type="text" class="custom-input_input" oninput="addSpan(event)" list="tags">
-                    </div><!--separator-->
-                    </div>
-                    <div class="comments flex flex-col">
-                    <input class="cart-textarea p-4" placeholder="Comment">
-                    </div>
-                    <div class="deleteRow">X</div>
-                </div>
-                </div>
+                <br>
             </div>
-        <br>
-        </div>
         
     `;
     const parent = document.querySelector('.cart-container');
@@ -157,7 +158,7 @@ function insertToParent(arr) {
     
 
     let parent = document.querySelector('.cart-container');
-    parent.innerHTML = "";
+    parent.innerHTML = '';
     parent.innerHTML += `
         <datalist  id="tagNamesDataList"></datalist>
     `;
@@ -169,7 +170,7 @@ function insertToParent(arr) {
             <div class="cart">
                 <div class="flex flex-col relative mb">
             
-                    <div class="absolute menu" style="top: 16px; left:20px; width: 200px; background-color: white; border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
+                    <div class="absolute menu" style="top: 16px; left:20px; width: 200px; background-color: rgb(44, 47, 56); border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
                         <span style="width: 100%; border-bottom: 1px solid black;">Archive</span>
                         <span style="width: 100%;">Delete permanently</span>
                     </div>
@@ -197,7 +198,7 @@ function insertToParent(arr) {
             <div class="cart nonActiveCart">
                 <div class="flex flex-col relative mb">
                     
-                    <div class="absolute menu" style="top: 16px; left:20px; width: 200px; background-color: white; border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
+                    <div class="absolute menu" style="top: 16px; left:20px; width: 200px; background-color: rgb(44, 47, 56); border: 1px solid black; z-index: 200; font-size: 16px; box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);">
                         <span style="width: 100%; border-bottom: 1px solid black;">Restore</span>
                         <span style="width: 100%;">Delete permanently</span>
                     </div>
@@ -459,12 +460,12 @@ function getValueFromSrc(src) {
 
 function toggleFlags(e) {
     let currentIndex = flagsSrc.indexOf(e.target.src);
-    // console.log(currentIndex);
-    // console.log(flagsSrc);
-    // console.log(e.target.src);
+    console.log(currentIndex);
+    console.log(flagsSrc);
+    console.log(e.target.src);
     
     if (flagsSrc.length-1 == currentIndex) {
-        e.target.src = flagsSrc[0];
+        e.target.src = flagsSrc[0].replace('moz','van');
     } else {
         currentIndex++;
         e.target.src = flagsSrc[currentIndex];
@@ -841,64 +842,71 @@ function changeParent(arr) {
         blocks.push(item.parentElement.parentElement.parentElement);
     });
 
+
     let parent = document.querySelector('.cart-container');
     parent.innerHTML = "";
     blocks.forEach(block => {
-        let bre = document.createElement('br');
-        parent.append(block);
-        parent.append(bre);
+        if(!block.className.includes("nonActiveCart")) {
+            let bre = document.createElement('br');
+            parent.append(block);
+            parent.append(bre);
+        }
     });
 }
 
 function checkForPressed(e) {
     let isPressed = false;
     if (e.target.tagName == "DIV") {
-        if (e.target.style.backgroundColor == 'white') {
+        if (e.target.style.backgroundColor == 'rgb(44, 47, 56)') {
             for (let i of e.target.childNodes) {
-                console.log(i.src);
-                if (i.src == "elegant_flooring/icons/sort-aplhabet-desc.svg") {
-                    i.src = "elegant_flooring/icons/sort-aplhabet-asc.svg";
-                } else if (i.src == "elegant_flooring/icons/sort-aplhabet-asc.svg") {
-                    i.src = "elegant_flooring/icons/sort-aplhabet-desc.svg";
+                if (i.src == "https://maxinum.kz/https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-desc.svg") {
+                    i.src = "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-asc.svg";
+                } else if (i.src == "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-asc.svg") {
+                    i.src = "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-desc.svg";
                 }
             }
 
-            e.target.style.backgroundColor = '#EDEBD7';
+
+            e.target.style.backgroundColor = '#273236';
             isPressed = false;
 
         } else {
             for (let i of e.target.childNodes) {
-                if (i.src == "elegant_flooring/icons/sort-aplhabet-asc.svg") {
-                    i.src = "elegant_flooring/icons/sort-aplhabet-desc.svg";
-                } else if (i.src == "elegant_flooring/icons/sort-aplhabet-desc.svg") {
-                    i.src = "elegant_flooring/icons/sort-aplhabet-asc.svg";
+                if (i.src == "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-asc.svg") {
+                    i.src = "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-desc.svg";
+                } else if (i.src == "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-desc.svg") {
+                    i.src = "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-asc.svg";
                 } 
             }
 
-            e.target.style.backgroundColor = 'white';
+
+            e.target.style.backgroundColor = '#2C2F38';
             isPressed = true;
         }
         
     } else {
-        if (e.target.parentElement.style.backgroundColor == 'white') {
 
-            if (e.target.src == "elegant_flooring/icons/sort-aplhabet-desc.svg") {
-                e.target.src = "elegant_flooring/icons/sort-aplhabet-asc.svg";
-            } else if (e.target.src == "elegant_flooring/icons/sort-aplhabet-asc.svg") {
-                e.target.src = "elegant_flooring/icons/sort-aplhabet-desc.svg";
+        if (e.target.parentElement.style.backgroundColor == 'rgb(44, 47, 56)') {
+
+            if (e.target.src == "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-desc.svg") {
+                e.target.src = "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-asc.svg";
+            } else if (e.target.src == "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-asc.svg") {
+                e.target.src = "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-desc.svg";
             } 
+
             
-            e.target.parentElement.style.backgroundColor = '#EDEBD7';
+            e.target.parentElement.style.backgroundColor = '#273236';
             isPressed = false;
         } else {
 
-            if (e.target.src == "elegant_flooring/icons/sort-aplhabet-asc.svg") {
-                e.target.src = "elegant_flooring/icons/sort-aplhabet-desc.svg";
-            } else if (e.target.src == "elegant_flooring/icons/sort-aplhabet-desc.svg") {
-                e.target.src = "elegant_flooring/icons/sort-aplhabet-asc.svg";
+            if (e.target.src == "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-asc.svg") {
+                e.target.src = "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-desc.svg";
+            } else if (e.target.src == "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-desc.svg") {
+                e.target.src = "https://maxinum.kz/elegant_flooring/icons/sort-aplhabet-asc.svg";
             }
+
             
-            e.target.parentElement.style.backgroundColor = 'white';
+            e.target.parentElement.style.backgroundColor = '#2C2F38';
             isPressed = true;
         }
     }

@@ -1,5 +1,5 @@
 body{
-    background-color: #211F1C
+    background-color: #212125
 }
 
 label{
@@ -19,7 +19,7 @@ button{
 
 
 .header{
-    background-color: #6E675F;
+    background-color: #2C2F38;
 }
 
 .container{
@@ -32,7 +32,7 @@ button{
     width: 100%;
     min-height: 100vh;
     position: relative;
-    background-color: #211F1C;
+    background-color: #212125;
 }
 
 .tabContainer .buttonContainer {
@@ -51,9 +51,10 @@ button{
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     font-size: 24px;
-    background-color: #A39594;
+    background-color: #273236;
     border-radius: 5px;
     border: 1px solid black;
+    color: white;
 } 
 
 .tabContainer .buttonContainer button:hover {
@@ -62,7 +63,7 @@ button{
 
 .tabContainer .tabPanel {
     height: 100%;
-    color: black;
+    color: white;
     text-align: center;
     padding-top: 30px;
     box-sizing: border-box;
@@ -112,7 +113,7 @@ button{
     height: 80vh;
     max-height: 100%;
     width: 100%;
-    color: black;
+    color: white;
     text-align: center;
     padding-top: 30px;
     box-sizing: border-box;
@@ -120,11 +121,10 @@ button{
     font-size: 22px;
     display: none;
     position: relative;
-    background-color: #EDEBD7;
+    background-color: #2C2F38;
 }
 
 #repTab{
-    background-color: #EDEBD7;
     border-radius: 10px;
     padding: 10px;
     min-height: 80vh;
@@ -145,27 +145,37 @@ button{
     text-align-last: center;
 }
 
-#repTab input{
+#repTab table input{
     background-color: transparent;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #3D3D3D;
+    text-align: center;
+    width: 70%;
+    text-align-last: center;
+}
+
+#repTab .sort-block input{
+    background-color: transparent;
     text-align: center;
     width: 70%;
     text-align-last: center;
 }
 
 .sort-block{
-    background-color: #EDEBD7;
-    padding: 5px 10px;
+    background-color: #2C2F38;
     width: 80%;
     margin: 0 auto;
 }
 
 .cart-header{
-    background-color: #EDEBD7;
+    background-color: #273236 ;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .cart-body{
-    background-color: #6E675F;
+    background-color: #2C2F38;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .cart-img, .cart-input{
@@ -178,6 +188,7 @@ button{
 
 .cart-textarea{
     height: 100%;
+    background-color: transparent;
 }
 
 .cart-container{
@@ -198,11 +209,9 @@ button{
 .custom-input {
     width: 100%;
     height: max-content;
-    border: 1px solid black;
     vertical-align: middle;
     display: flex;
     padding: 5px 10px;
-    background-color: white;
     max-width: 796px;
     flex-flow: row wrap;
     overflow-x: auto;
@@ -211,7 +220,6 @@ button{
   }
   
   .custom-input_word {
-    border: 1px solid #ff870f;
     padding: 2px 15px;
     padding-right: 25px;
     border-radius: 5px;
@@ -222,6 +230,7 @@ button{
   }
   
   .custom-input_input {
+    background-color: transparent;
     margin-left: 5px;
     border: 0;
     outline: 0;
@@ -230,14 +239,18 @@ button{
   
   .x-button {
     position: absolute;
-    top: 0px;
+    top: 50%;
+    transform: translateY(-50%);
     right: 0px;
     padding: 0;
     width: 18px;
     border: 0;
-    border-left: 1px solid #ff870f;
     border-radius: 5px;
-    height: 100%;
-    background-color: transparent;
+    background-color: #999999;
+    color: white;
+    font-size: 12px;
   }
   
+  .tags{
+      border-right: 2px solid #3D3D3D;
+  }

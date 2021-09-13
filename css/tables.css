@@ -9,10 +9,15 @@ table{
     table-layout:fixed;
     border-collapse: collapse;
 }
-th,td{
+td{
     padding: 10px 20px;
     vertical-align:middle;
-    background-color: #EDEBD7;
+    background-color: #2C2F38;
+}
+th{
+  padding: 10px 20px;
+  vertical-align:middle;
+  background-color: #273236 ;
 }
 
 label {
@@ -63,7 +68,7 @@ select {
     border: 2px solid gray;
     border-radius: auto;
     -webkit-border-radius: 500px;
-    -moz-border-radius: 500px;
+    border-radius: 500px;
 }
 
 #skuTable {
@@ -203,7 +208,7 @@ span {
     width: 100%;
     left: 15%;
     opacity: 0;
-    color: black;
+    color: white;
   }
 
   .toggleSwitch a {
@@ -219,14 +224,14 @@ span {
     border: 1px solid #CCC;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease-out;
-    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
     transition: all 0.2s ease-out;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     top: calc(130% + 4px);
   }
 
   .toggleSwitch > span span:first-of-type {
-    color: black;
+    color: white;
     opacity: 1;
     left: 45%;
   }
@@ -242,7 +247,7 @@ span {
     border: 1px solid #ccc;
     border-radius: 30px;
     -webkit-transition: all 0.2s ease-out;
-    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
     transition: all 0.2s ease-out;
   }
 
@@ -260,7 +265,7 @@ span {
   }
   .toggleSwitch input:checked ~ span span:last-of-type {
     opacity: 1;
-    color: black;
+    color: white;
     left: 90%;
   }
 
@@ -332,10 +337,31 @@ span {
     height: 1em;
     /* decoration */
     color: #000000;
-    background-color: #EDEBD7;
     border-radius: 50%;
     /* center align */
     line-height: 1;
     text-align: center;
     cursor: pointer;
+  }
+
+  table {
+    border-radius: 5px !important;
+    border-collapse: collapse !important;
+    border: none !important;
+  }
+  table th,
+  table td {
+    border: none !important
+  }
+  table th:first-child {
+    border-radius: 5px 0 0 0 !important;
+  }
+  table th:last-child {
+    border-radius: 0 5px 0 0 !important;
+  }
+  table tr:last-child td:first-child {
+    border-radius: 0 0 0 5px !important;
+  }
+  table tr:last-child td:last-child {
+    border-radius: 0 0 5px 0 !important;
   }
