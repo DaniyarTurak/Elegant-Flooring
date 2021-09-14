@@ -26,27 +26,28 @@ activeCheckbox.addEventListener('click', (e) => {
         cart.classList.toggle('nonActiveCart');
     });
 
+    console.log(document.getElementById('checkedTxt'));
+    console.log(status);
+
     if (status == "true") {
         stSwitch.setAttribute('status', false);
         document.getElementById("checkedTxt").innerHTML = "Inactive";
-        document.getElementById("checkedImg").src = "icons/checked.svg";
-        document.getElementById('checkedTxt').style.color = '#656565';
-
-        
-
+        //document.getElementById("checkedImg").src = "icons/checked.svg";
+        document.getElementById('checkedTxt').style.color = 'gray';
         
         
     } else {
         stSwitch.setAttribute('status', true);
         document.getElementById("checkedTxt").innerHTML = "Active";
-        document.getElementById("checkedImg").src = "icons/checked-blue.svg";
-        document.getElementById('checkedTxt').style.color = '#0078FF';
+        //document.getElementById("checkedImg").src = "icons/checked-blue.svg";
+        document.getElementById('checkedTxt').style.color = 'white';
     }
    
 });
 
 addSkuBtn.addEventListener('click', (e) => {
 
+    //border-2 border-black
     const newcart = `
 
         <div class="cart">
@@ -61,7 +62,7 @@ addSkuBtn.addEventListener('click', (e) => {
                     <div class="cart-header p-4 flex items-center gap-4">
                         <div class="discussion" style="font-size: 2em;"></div>
 
-                        <div contenteditable="true" style="width: 45px; height:40px" class="tagCount border-2 border-black">1</div>
+                        <div contenteditable="true" style="width: 45px; height:40px" class="tagCount">1</div>
                         <div contenteditable="true" class="flex-1 title-sku">SKU</div> 
                         <div class="flagContainer">
                             <img src="flags/gray_circle.png" alt="Flags" width="45" class="flag">
@@ -176,7 +177,7 @@ function insertToParent(arr) {
                     <div class="cart-header p-4 flex items-center gap-4">
                         <div class="discussion" style="font-size: 2em;"></div>
 
-                        <div contenteditable="true" style="width: 45px; height:40px" class="tagCount border-2 border-black">${countOccurence(skuDb.row[key], "cart-textarea")}</div>
+                        <div contenteditable="true" style="width: 45px; height:40px" class="tagCount">${countOccurence(skuDb.row[key], "cart-textarea")}</div>
                         <div contenteditable="true" class="flex-1 title-sku">${key}</div> 
                         <div class="flagContainer">
                             <img src="${flagIcons(skuDb.flags[key])}" alt="Flags" width="45" class="flag">
@@ -204,7 +205,7 @@ function insertToParent(arr) {
                     <div class="cart-header p-4 flex items-center gap-4 ">
                         <div class="discussion" style="font-size: 2em;"></div>
 
-                        <div contenteditable="true" style="width: 45px; height:40px" class="tagCount border-2 border-black">${countOccurence(skuDb.row[key], "cart-textarea")}</div>
+                        <div contenteditable="true" style="width: 45px; height:40px" class="tagCount">${countOccurence(skuDb.row[key], "cart-textarea")}</div>
                         <div contenteditable="true" class="flex-1 title-sku">${key}</div> 
                         <div class="flagContainer">
                             <img src="${flagIcons(skuDb.flags[key])}" alt="Flags" width="45" class="flag">

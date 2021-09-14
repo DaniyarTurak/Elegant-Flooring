@@ -72,7 +72,7 @@
                     <div style="height: 33px; width: 2px; align-self: center; background-color: black;"></div>
                     <div class="px-3 self-center" id="statusSwitcher" status="true"
                         style="cursor: pointer; width: 89px; box-sizing: content-box;">
-                        <span style="color: #0078FF;" id="checkedTxt">Active</span>
+                        <span style="color: white;" id="checkedTxt">Active</span>
                     </div>
                 </div>
                 <!-- max-w-full min-w-max for cart-container-->
@@ -208,10 +208,13 @@
             </div>
         </div>
 
-        <div class=" tabPanel noSpace">
+        <div class="tabPanel noSpace" id="repPanel">
                         <iframe id="dashboard"
                             src="https://datastudio.google.com/embed/reporting/a003daed-461b-4943-a28c-4d39ab160131/page/PqcSC"
-                            frameborder="0" style="border:0" allowfullscreen></iframe>
+                            frameborder="0" style="border:0" allowfullscreen>
+                            
+                            
+                        </iframe>
                 </div>
 
                 <div class="modal">
@@ -231,7 +234,6 @@
             <script defer src="js/tabChanger.js"></script>
             <script defer src="dataTables/accTable.js"></script>
             <script defer src="dataTables/skuTable.js"></script>
-
 </body>
 
 </html>
