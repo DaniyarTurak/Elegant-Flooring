@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/popUps.css">
     <link rel="stylesheet" href="css/tabContainer.css">
     <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/footer.css">
 
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -28,10 +29,18 @@
     <div class="tabContainer">
         <header class="header">
             <div class="buttonContainer container">
-                <button>REP</button>
+                <ul class="tabs clearfix">
+                    <li class="active">
+                        <button>ACC</button>
+                    </li>
+                    <li>
+                        <button>SKU</button>
+                    </li>
+                    <li>
+                        <button>REPORTS</button>
+                    </li>
+                </ul>
                 <!--onclick="showPanel(0,'#EBC670')"-->
-                <button>SKU</button>
-                <button>REPORTS</button>
             </div>
         </header>
         <div class="tabPanel container" id="repTab">
@@ -207,33 +216,76 @@
                 
             </div>
         </div>
-
+        <!--pointer-events: none;-->
         <div class="tabPanel noSpace" id="repPanel">
-                        <iframe id="dashboard"
-                            src="https://datastudio.google.com/embed/reporting/a003daed-461b-4943-a28c-4d39ab160131/page/PqcSC"
-                            frameborder="0" style="border:0" allowfullscreen>
-                            
-                            
-                        </iframe>
-                </div>
+                <div ng-if="reportViewCtrl.isReportEmbedding()" style="display:none"></div>
+                
+                <div class="iframe-border">
+                    <iframe id="dashboard"
+                        src="https://datastudio.google.com/embed/reporting/a003daed-461b-4943-a28c-4d39ab160131/page/PqcSC"
+                        frameborder="0" style="border:0;" allowfullscreen>
+                    </iframe>
+                
 
-                <div class="modal">
-                    <div class="modal__dialog">
-
-                        <div class="modal__content">
-                            <div class="modal__close" data-close>&times;</div>
-                            <div class="modal__title mb-2"></div>
-
-
+                    <footer class="footer-distributed">
+        
+                        <div class="footer-left">
+                        
+                        <h3>Maxi<span>Num</span></h3>
+                        
                         </div>
+                        
+                        <div class="footer-center">
+                        
+                    
+                        
+                        <div>
+                        <i class="fa fa-envelope"></i>
+                        <p><a href="mailto:imussin@holtenimpex.com">imussin@holtenimpex.com</a></p>
+                        </div>
+                        
+                        </div>
+                        
+                        <div class="footer-right">
+                        
+                        
+                        
+                        <!--
 
+                            <p class="footer-company-about">
+                        <span>About the company</span>
+                        </p>
+                        <div class="footer-icons">
+                        
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-github"></i></a>
+                        
+                        </div>
+                        -->
+                        </div>
+                        
+                        </footer>
+                </div>  
+        </div>
+
+            <div class="modal">
+                <div class="modal__dialog">
+
+                    <div class="modal__content">
+                        <div class="modal__close" data-close>&times;</div>
+                        <div class="modal__title mb-2"></div>
                     </div>
                 </div>
             </div>
+        </div>
 
             <script defer src="js/tabChanger.js"></script>
             <script defer src="dataTables/accTable.js"></script>
             <script defer src="dataTables/skuTable.js"></script>
+            <script defer src="js/removeBar.js" ></script>
+
 </body>
 
 </html>
